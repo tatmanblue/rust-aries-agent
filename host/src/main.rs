@@ -1,17 +1,24 @@
-#![feature(async_await, futures_api, await_macro)]
-
 #[macro_use]
 extern crate serde_derive;
 
-use tide::{error::ResultExt, response, App, Context, EndpointResult};
-use http::status::StatusCode;
+use tide;
+use tokio;
 
-fn main() {
-    println!("Rust Aries HOST");
-	let mut app = App::new();
+fn run_host() {
+	let mut app = tide::new();
+	
+	// TODO: let agent add routes
+	app.at("/").get(|_| async { Ok("Hello, world!") });
 	
 	// TODO: the IP port etc come from configuration
 	// env, config file, parameter etc....
-	app.serve("127.0.0.1:8000").unwrap();
+	
+	let mut rt = tokio::runtime::Runtime::new().unwrap();
+	rt.block_on(app.listen("127.0.0.1:8000"));
+}
+
+fn main() {
+    println!("Rust Aries initializing");	
+	run_host();
 }
 
