@@ -12,3 +12,6 @@ communicate such as gRPC or Websockets.
 
 ## ToThink()
 1. We may with to create a separate project for the domain model so that it can be shared by agents and agencies.
+
+## References
+[rust host](https://dev.to/gruberb/web-development-with-rust-03-x-create-a-rest-api-3i82)
