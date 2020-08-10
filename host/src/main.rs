@@ -2,9 +2,42 @@
 #[macro_use]
 extern crate clap;
 
-use clap::{App, Arg};
+use clap::{App, ArgMatches};
 use tide;
 use tokio;
+
+// ToThink(): the enum and structure may need to be in a different library
+// but will reorganize as pattern emerges
+enum HostingTypes {
+	Agent,
+	Agency
+}
+
+struct Config {
+	host: String,
+	host_type: HostingTypes
+}
+
+impl Config {
+	fn new() -> Self {
+		let yaml = load_yaml!("config.yml");
+		let options: ArgMatches = App::from_yaml(yaml).get_matches();
+
+		let host = options.value_of("host").unwrap_or("127.0.0.1:8000");
+		// TODO: eventually this will come from configuration
+		let host_type = HostingTypes::Agent;
+
+		Config {
+			host: host.to_string(),
+			host_type
+		}
+	}
+
+	fn print() {
+
+	}
+}
+
 
 fn run_host(host: &str) {
 	let mut app = tide::new();
@@ -20,13 +53,8 @@ fn run_host(host: &str) {
 }
 
 fn main() {
-
-    println!("Rust Aries initializing");
-	// The YAML file is found relative to the current file, similar to how modules are found
-	let yaml = load_yaml!("config.yml");
-	let options = App::from_yaml(yaml).get_matches();
-	let host = options.value_of("host").unwrap_or("127.0.0.1:8000");
-
-	run_host(host);
+	let options: Config = Config::new();
+	println!("listening on {0}", options.host);
+	run_host(&options.host);
 }
 

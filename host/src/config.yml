@@ -9,11 +9,12 @@ settings:
 
 # All Args must be defined in the 'args:' list where the name of the arg, is the
 # key to a Hash object
+#
+# ToThink():
+#  1 once we support both agent and agency, will need input for which one
 args:
-  # The name of this argument, is 'opt' which will be used to access the value
-  # later in your Rust code
-  - opt:
-      help: defines IP and port the host will use to listen to request
+  - host:
+      help: ip/port host will use to listen to request such as 127.0.0.1:8000
       short: h
       long: host
       takes_value: true
