@@ -5,7 +5,8 @@ orbs:
   
   
 jobs:
-  build-and-test:
+  build:
+    executor: rust/default   
     steps:
         - checkout
         - run:
