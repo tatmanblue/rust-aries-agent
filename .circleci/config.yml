@@ -8,7 +8,7 @@ jobs:
   build-and-test:
     steps:
         - checkout
-        - run
+        - run:
             name: building host
             command: |
                 cd host
