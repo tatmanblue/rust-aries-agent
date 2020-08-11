@@ -10,6 +10,8 @@ existing agents such as [ACAPY](https://github.com/hyperledger/aries-cloudagent-
 The secondary goal of this project will be to create an agency for using the aries agent created in 
 the fist goal stated above.
 
+[![tatmanblue](https://circleci.com/gh/tatmanblue/rust-aries-agent.svg?style=shield)](https://app.circleci.com/pipelines/github/tatmanblue/rust-aries-agent)
+
 ## References
 [Aries RFCS](https://github.com/hyperledger/aries-rfcs)
 
