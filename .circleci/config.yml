@@ -6,11 +6,13 @@ orbs:
   
 jobs:
   build-and-test:
-    - run
-        name: building host
-        command: |
-            cd host
-            cargo build
+    steps:
+        - checkout
+        - run
+            name: building host
+            command: |
+                cd host
+                cargo build
 
 
 workflows:
