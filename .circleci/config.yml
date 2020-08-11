@@ -1,0 +1,23 @@
+version: 2.1
+
+orbs:
+  rust: glotrade/rust@0.1.3
+  
+  
+jobs:
+  build-and-test:
+    - run
+        name: building host
+        command: |
+            cd host
+            cargo build
+
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build-and-test:
+          filters:
+            tags:
+              only: /.*/
