@@ -5,7 +5,7 @@
 # Rust Aries Agent
 
 The primary goal of this project is to create an aries agent compliant following the RFCS and is compatible with other
-existing agents such as [ACAPY](https://github.com/hyperledger/aries-cloudagent-python)
+existing agents such as [ACAPY](https://github.com/hyperledger/aries-cloudagent-python).
 
 The secondary goal of this project will be to create an agency for using the aries agent created in 
 the fist goal stated above.

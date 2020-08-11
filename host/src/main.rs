@@ -1,17 +1,19 @@
 #![warn(unused_must_use)]
+
+// our dependencies, and keep them alphabetical
 #[macro_use]
 extern crate clap;
 
+// our mods, and keep them alphabetical
+mod hosting;
+
+// dependency use statements, and keep them alphabetical
 use clap::{App, ArgMatches};
 use tide;
 use tokio;
 
-// ToThink(): the enum and structure may need to be in a different library
-// but will reorganize as pattern emerges
-enum HostingTypes {
-	Agent,
-	Agency
-}
+// our use statements, and keep them alphabetical (getting the idea yet?)
+use hosting::{HostingFactory, HostingTypes};
 
 struct Config {
 	host: String,
@@ -25,7 +27,7 @@ impl Config {
 
 		let host = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		// TODO: eventually this will come from configuration
-		let host_type = HostingTypes::Agent;
+		let host_type = HostingFactory::get_agent_or_agency();
 
 		Config {
 			host: host.to_string(),

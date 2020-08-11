@@ -1,9 +1,10 @@
 [package]
-name = "shared"
+name = "aries-shared"
 version = "0.1.0"
-authors = ["Matt Raffel <mattr@kiva.org>"]
+authors = ["tatmanblue <Matt.Raffel@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# keep these in alphabetical order
 [dependencies]
