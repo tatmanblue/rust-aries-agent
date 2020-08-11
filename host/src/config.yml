@@ -18,3 +18,11 @@ args:
       short: h
       long: host
       takes_value: true
+  - role:
+      help: agent or agency.
+      short: r
+      long: role
+      takes_value: true
+      possible_values:
+          - agent
+          - agency

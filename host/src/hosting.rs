@@ -1,6 +1,7 @@
 
 // ToThink(): the enum and structure may need to be in a different library
 // but will reorganize as pattern emerges
+#[derive(Debug)]
 pub enum HostingTypes {
     Agent,
     Agency
@@ -13,10 +14,11 @@ pub struct HostingFactory {}
     traditional sense.
  */
 impl HostingFactory {
-    pub fn get_agent_or_agency() -> HostingTypes {
-        // TODO: return type
-        // TODO: read config to understand which to return
+    pub fn get_agent_or_agency(hosting_type: &str) -> HostingTypes {
         // TODO: initialization of
-        HostingTypes::Agent
+        match hosting_type.to_lowercase().as_str() {
+            "agency" => HostingTypes::Agency,
+            _ => HostingTypes::Agent
+        }
     }
 }

@@ -25,9 +25,8 @@ impl Config {
 		let yaml = load_yaml!("config.yml");
 		let options: ArgMatches = App::from_yaml(yaml).get_matches();
 
-		let host = options.value_of("host").unwrap_or("127.0.0.1:8000");
-		// TODO: eventually this will come from configuration
-		let host_type = HostingFactory::get_agent_or_agency();
+		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
+		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
 
 		Config {
 			host: host.to_string(),
@@ -35,8 +34,15 @@ impl Config {
 		}
 	}
 
-	fn print() {
-
+	fn print(&self) {
+		println!();
+		println!("----------------------------------------");
+		println!();
+		println!("    Port {}", self.host);
+		println!("    As   {:?}", self.host_type);
+		println!();
+		println!("----------------------------------------");
+		println!();
 	}
 }
 
@@ -46,17 +52,14 @@ fn run_host(host: &str) {
 	
 	// TODO: let agent add routes
 	app.at("/").get(|_| async { Ok("Hello, world!") });
-	
-	// TODO: the IP port etc come from configuration
-	// env, config file, parameter etc....
-	
+
 	let mut rt = tokio::runtime::Runtime::new().unwrap();
 	rt.block_on(app.listen(host));
 }
 
 fn main() {
 	let options: Config = Config::new();
-	println!("listening on {0}", options.host);
+	options.print();
 	run_host(&options.host);
 }
 
