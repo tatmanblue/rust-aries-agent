@@ -13,13 +13,3 @@ jobs:
             command: |
                 cd host
                 cargo build
-
-
-workflows:
-  version: 2
-  build-test:
-    jobs:
-      - build-and-test:
-          filters:
-            tags:
-              only: /.*/
