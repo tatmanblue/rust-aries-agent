@@ -1,13 +1,20 @@
-#![warn(unused_must_use)]
+#![allow(unused_must_use)]
 
 // our dependencies, and keep them alphabetical
+extern crate aries_agency as AriesAgency;
+extern crate aries_agent as AriesAgent;
+extern crate aries_shared as AriesShared;
+
 #[macro_use]
 extern crate clap;
+#[macro_use]
+extern crate lazy_static;
 
 // our mods, and keep them alphabetical
 mod hosting;
 
 // dependency use statements, and keep them alphabetical
+use AriesShared::ProtocolTrait::ProtocolTrait;
 use clap::{App, ArgMatches};
 use tide;
 use tokio;
@@ -46,20 +53,25 @@ impl Config {
 	}
 }
 
+lazy_static! {
+	static ref CONFIG: Config = Config::new();
+}
 
-fn run_host(host: &str) {
+fn run_host() {
 	let mut app = tide::new();
-	
+
 	// TODO: let agent add routes
-	app.at("/").get(|_| async { Ok("Hello, world!") });
+	app.at("/").get(|_| async {
+		CONFIG.host_type.status();
+		Ok("ok")
+	});
 
 	let mut rt = tokio::runtime::Runtime::new().unwrap();
-	rt.block_on(app.listen(host));
+	rt.block_on(app.listen(CONFIG.host.to_string()));
 }
 
 fn main() {
-	let options: Config = Config::new();
-	options.print();
-	run_host(&options.host);
+	CONFIG.print();
+	run_host();
 }
 

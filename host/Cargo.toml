@@ -17,6 +17,7 @@ aries-shared = { path = "../shared" }
 
 clap = {version = "2.33.1", features = ["yaml"]}
 http = "0.2.1"
+lazy_static = "1.4.0"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 tide = "0.13.0"
