@@ -38,3 +38,23 @@ impl BasicMessage {
         Ok(message)
     }
 }
+
+#[cfg(test)]
+mod basic_message_test {
+    use super::*;
+
+    #[test]
+    fn test_json_converts_ok() {
+        const JSON: &str = r#"{
+            "@id": "123456780",
+            "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/basicmessage/1.0/message",
+            "~l10n": { "locale": "en" },
+            "sent_time": "2019-01-15 18:42:01Z",
+            "content": "Your hovercraft is full of eels."
+            }"#;
+        
+        let message: BasicMessage = BasicMessage::from_json(JSON).unwrap();
+        assert_eq!(message.id, "123456780");
+        assert_eq!(message.content, "Your hovercraft is full of eels.");
+    }
+}
