@@ -10,13 +10,16 @@ and is compatible with other existing agents such as [ACAPY](https://github.com/
 The secondary goal of this project will be to create an agency for using the aries agent created in 
 the first goal stated above.
 
+## Projects
+
 Short term, keep in mind that the architecture of the services is in flux as we work through
 use cases, business logic etc...as these will reveal patterns that help structure the architecture of 
 the projects.
 
 [![tatmanblue](https://circleci.com/gh/tatmanblue/rust-aries-agent.svg?style=shield)](https://app.circleci.com/pipelines/github/tatmanblue/rust-aries-agent)
 
-## Projects
+
+
 | Project | Description |
 |---------|-------------|
 |[Host](host/README.md)|Host provides webservices that expose an agent or agency.|  

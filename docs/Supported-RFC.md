@@ -2,8 +2,11 @@
 Our goal is to be 100% Aries compliant.   Order of implementation has not be deteremined but, 
 obviously, some protocols are dependent on others.
 
-## Current RFCs implemented
+## RFCs implemented
 None
+
+## In Progress
+[BasicMessage](https://github.com/hyperledger/aries-rfcs/tree/master/features/0095-basic-message)
 
 ## Next Steps
 TBD
