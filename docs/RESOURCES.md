@@ -10,3 +10,5 @@
 [IndySDK](https://github.com/hyperledger/indy-sdk)
 [Indy Node](https://github.com/hyperledger/indy-node)
 
+## Other
+[Locale](https://en.wikipedia.org/wiki/Language_localisation)
