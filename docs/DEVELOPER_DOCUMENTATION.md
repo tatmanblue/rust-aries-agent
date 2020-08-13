@@ -14,6 +14,8 @@ Snake case is not to be used for the following:
 * structures
 * enums and enum members
 
+An exception is made for non public test `mod`.
+
 ### Alphabetic ordering
 Any form of code that is done in a `list` like pattern must be alphabetical unless noted otherwise.
 

@@ -9,6 +9,7 @@ pub struct BasicMessage {
     pub type_field: String,
     #[serde(rename = "~l10n")]
     pub l10n: L10N,
+    // TODO: replace with datetime
     #[serde(rename = "sent_time")]
     pub sent_time: String,
     pub content: String,
@@ -17,13 +18,14 @@ pub struct BasicMessage {
 #[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct L10N {
+    // TODO: replace with Locale enum
     pub locale: String,
 }
 
 impl BasicMessage {
-    pub fn new(id: String) -> BasicMessage {
+    pub fn new(id: &str) -> BasicMessage {
         BasicMessage {
-            id,
+            id: id.to_string(),
             type_field: "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/basicmessage/1.0/message".to_string(),
             l10n: L10N {
                 locale: "".to_string()
@@ -40,11 +42,11 @@ impl BasicMessage {
 }
 
 #[cfg(test)]
-mod basic_message_test {
+mod Test {
     use super::*;
 
     #[test]
-    fn test_json_converts_ok() {
+    fn json_converts_ok() {
         const JSON: &str = r#"{
             "@id": "123456780",
             "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/basicmessage/1.0/message",
