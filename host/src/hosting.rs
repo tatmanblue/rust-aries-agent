@@ -26,10 +26,11 @@ pub enum HostingTypes {
 /**
     Think of this ProtocolTrait implementation as something along the lines of an abstract class pointer
     or a v-table pointer in an OO language.
+    
     The factory returns one of the enums along  with the associated implementation type allocated within the enum itself.
     Since consumers have the enum, the ProtocolTrait implementation on the enum allows the consumer to work with the
     enum as a "class pointer" and not have to know about the actual implementation details; thereby making the
-    consumer decoupled from the implementation.
+    consumer decoupled from the implementation.  This solves for the "i" in SOLID
 
     The concrete implementation are in their respective libraries.
 */
@@ -38,6 +39,13 @@ impl ProtocolTrait for HostingTypes {
         match *self {
             HostingTypes::Agent(ref handler) => handler.status(),
             HostingTypes::Agency(ref handler) => handler.status(),
+        }
+    }
+
+    fn receive_basic_message(&self) {
+        match *self {
+            HostingTypes::Agent(ref handler) => handler.receive_basic_message(),
+            HostingTypes::Agency(ref handler) => handler.receive_basic_message(),
         }
     }
 }

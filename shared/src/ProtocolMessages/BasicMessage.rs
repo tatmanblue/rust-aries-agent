@@ -28,10 +28,10 @@ impl BasicMessage {
             id: id.to_string(),
             type_field: "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/basicmessage/1.0/message".to_string(),
             l10n: L10N {
-                locale: "".to_string()
+                locale: String::new()
             },
-            sent_time: "".to_string(),
-            content: "".to_string(),
+            sent_time: String::new(),
+            content: String::new(),
         }
     }
     

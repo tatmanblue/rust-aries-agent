@@ -9,4 +9,5 @@ impl ProtocolTrait for AgencyProtocol {
     fn status(&self) {
         println!("AgencyProtocol implementation");
     }
+    fn receive_basic_message(&self) { todo!() }
 }
