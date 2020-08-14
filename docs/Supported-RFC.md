@@ -9,7 +9,8 @@ None
 [BasicMessage](https://github.com/hyperledger/aries-rfcs/tree/master/features/0095-basic-message)
 
 ## Next Steps
-TBD
+[Connection](https://github.com/hyperledger/aries-rfcs/blob/master/features/0160-connection-protocol/README.md)  
+and/or [DidComm](https://github.com/hyperledger/aries-rfcs/blob/master/features/0023-did-exchange/README.md)
 
 ## References
 [ACAPY RFCs](https://github.com/hyperledger/aries-cloudagent-python/blob/master/SupportedRFCs.md)  
