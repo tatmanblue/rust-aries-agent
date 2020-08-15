@@ -1,5 +1,10 @@
 use AriesAgency::AgencyProtocol::AgencyProtocol;
 use AriesAgent::AgentProtocol::AgentProtocol;
+use AriesShared::ProtocolMessages::{
+    ErrorResponse,
+    GenericResponse,
+    BasicMessage::BasicMessage
+};
 use AriesShared::ProtocolTrait::ProtocolTrait;
 
 
@@ -42,10 +47,10 @@ impl ProtocolTrait for HostingTypes {
         }
     }
 
-    fn receive_basic_message(&self) {
+    fn receive_basic_message(&self, message: BasicMessage)  -> Result<GenericResponse, ErrorResponse> {
         match *self {
-            HostingTypes::Agent(ref handler) => handler.receive_basic_message(),
-            HostingTypes::Agency(ref handler) => handler.receive_basic_message(),
+            HostingTypes::Agent(ref handler) => handler.receive_basic_message(message),
+            HostingTypes::Agency(ref handler) => handler.receive_basic_message(message),
         }
     }
 }

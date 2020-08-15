@@ -1,3 +1,8 @@
+use AriesShared::ProtocolMessages::{
+    ErrorResponse,
+    GenericResponse,
+    BasicMessage::BasicMessage
+};
 use AriesShared::ProtocolTrait::ProtocolTrait;
 
 #[derive(Debug)]
@@ -9,6 +14,10 @@ impl ProtocolTrait for AgentProtocol {
     fn status(&self) {
         println!("AgentProtocol implementation");
     }
-    fn receive_basic_message(&self) { todo!() }
+    fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
+        println!("Agent received basic message '{}'", message.content);
+        let response: GenericResponse = GenericResponse { id: 1 }; 
+        Ok(response)
+    }
 }
 

@@ -16,11 +16,16 @@ mod hosting;
 // dependency use statements, and keep them alphabetical
 use AriesShared::ProtocolTrait::ProtocolTrait;
 use clap::{App, ArgMatches};
-use tide;
+use tide::*;
 use tokio;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
 use hosting::{HostingFactory, HostingTypes};
+use AriesShared::ProtocolMessages::{
+	ErrorResponse,
+	GenericResponse,
+	BasicMessage::BasicMessage
+};
 
 struct Config {
 	host: String,
@@ -60,10 +65,25 @@ lazy_static! {
 fn run_host() {
 	let mut app = tide::new();
 
-	// TODO: let agent add routes
-	app.at("/").get(|_| async {
+	// TODO: temporary impl just to have endpoint working
+	app.at("/").get(|_| async move {
 		CONFIG.host_type.status();
 		Ok("ok")
+	});
+	
+	// TODO: need to confirm api end point
+	app.at("/basicmessage").post(|mut req: tide::Request<()>| async move {
+		let message: BasicMessage = req.body_json().await.unwrap();
+		match CONFIG.host_type.receive_basic_message(message) {
+			Ok(_success) => {
+				let mut res = Response::new(200);
+				Ok(res)
+			},
+			_ => {
+				let mut res = Response::new(500);
+				Ok(res)
+			}
+		}
 	});
 
 	let mut rt = tokio::runtime::Runtime::new().unwrap();
