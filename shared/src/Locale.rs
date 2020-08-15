@@ -15,6 +15,7 @@ pub enum Locales {
 	enUS
 }
 
+// toThink() perhaps it would be good to make default configurable
 impl Default for Locales {
 	fn default() -> Self {
 		Locales::enUS
