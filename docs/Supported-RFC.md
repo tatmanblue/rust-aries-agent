@@ -6,7 +6,8 @@ obviously, some protocols are dependent on others.
 None
 
 ## In Progress
-[BasicMessage](https://github.com/hyperledger/aries-rfcs/tree/master/features/0095-basic-message)
+blocked [BasicMessage](https://github.com/hyperledger/aries-rfcs/tree/master/features/0095-basic-message)
+
 
 ## Next Steps
 [Connection](https://github.com/hyperledger/aries-rfcs/blob/master/features/0160-connection-protocol/README.md)  

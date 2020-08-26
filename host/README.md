@@ -11,7 +11,7 @@ The reason we want to separate agent from host implementations is to make it eas
 communicate such as gRPC or Websockets.
 
 ## ToThink()
-1. We may with to create a separate project for the domain model so that it can be shared by agents and agencies.
+1. other endpoints to support: /plugins, /status, /features (see acapy swagger)
 
 ## References
 [rust host](https://dev.to/gruberb/web-development-with-rust-03-x-create-a-rest-api-3i82)
