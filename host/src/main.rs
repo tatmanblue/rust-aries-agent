@@ -73,7 +73,8 @@ fn run_host() {
 	
 	// TODO: make all routing handled in a different place,
 	//       prob something more data driven.  Below is just
-	/        temporary while proving out a few things
+	//       temporary while proving out a few things
+	// FUTURE PRs will not be allowed to add new routes here
 	// TODO: need to confirm api end point
 	app.at("/basicmessage").post(|mut req: tide::Request<()>| async move {
 		let message: BasicMessage = req.body_json().await.unwrap();
