@@ -5,11 +5,13 @@ use crate::ProtocolMessages:: {
 };
 
 /*
-  Agents must implement this trait
+    Agents must implement this trait.
+    each method is to handle an aries procotol message and provide appropriate reply.
  */
 pub trait ProtocolTrait {
-    // Temporary method to prove out our "DI"
+    // simply reports the status of the agent
+    // TODO: reply???
     fn status(&self);
-    // TODO: reply?
+    // handle an inbound basic message
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse>;
 }

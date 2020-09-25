@@ -15,7 +15,7 @@ pub struct GenericResponse {
     pub id: u32
 }
 
-// TODO: define what a GenericResponse means
+// TODO: define what a ErrorResponse means
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ErrorResponse {
