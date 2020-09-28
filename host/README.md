@@ -1,9 +1,13 @@
 # Rust Aries Host
 
 The host is responsible for assembling the application that makes [agents](../agent/README.md) and 
-[agencies](../agency/README.md) communicate with other agents.
+[agencies](../agency/README.md) communicating with other agents.
 
+## Version 1
 This particular host will support agents (and agencies) through RESTFul apis as used in other agent implements.
+
+## Version X
+The transport layer should configurable.....eg: it could use gRPC instead, etc...
 
 ## Architecture
 
