@@ -22,12 +22,13 @@ the projects.
 
 | Project | Description |
 |---------|-------------|
-|[Host](host/README.md)|Host provides the public transport layer.  For now, it will be RESTFul API exposing an agent or agency. (TBD: will/can 
-the same host be used for different transport layers)|  
+|[Host](host/README.md)|Host provides the public transport layer.  For now, it will be RESTFul API exposing an agent or agency.|  
 |[Agent](agent/README.md)|Agent is an Aries Agent compliant service.|   
 |[Agency](agency/README.md)|An agency provides access to multiple agents.|  
 |[Shared](shared/README.md)|Library for code used by all of the projects.  Mostly likely, most of the project code will reside here.|
 
+## Design and Work Plan
+Please see [Order of Work](docs/ORDER_OF_WORK.md) to understand what current development priorities are.
 
 ## References
 [Aries RFCS](https://github.com/hyperledger/aries-rfcs)
@@ -38,4 +39,4 @@ Please see [LICENSE.md](./LICENSE.md).
 ## Status
 Initial/Concept
 
-edited: 2020.08.02
+edited: 2020.10.01
