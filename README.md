@@ -22,7 +22,8 @@ the projects.
 
 | Project | Description |
 |---------|-------------|
-|[Host](host/README.md)|Host provides the public transport layer.  For starters, it will be RESTFul API exposing an agent or agency.|  
+|[Host](host/README.md)|Host provides the public transport layer.  For now, it will be RESTFul API exposing an agent or agency. (TBD: will/can 
+the same host be used for different transport layers)|  
 |[Agent](agent/README.md)|Agent is an Aries Agent compliant service.|   
 |[Agency](agency/README.md)|An agency provides access to multiple agents.|  
 |[Shared](shared/README.md)|Library for code used by all of the projects.  Mostly likely, most of the project code will reside here.|
