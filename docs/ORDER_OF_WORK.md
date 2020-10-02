@@ -1,6 +1,7 @@
 # Order of Work
 
 This document describes work that needs to be done, and should be considered list by priority with highest priority first.
+Generally speaking, the goal is to get agent [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10)
 
 edited: 2020.10.01
 
