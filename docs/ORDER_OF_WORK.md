@@ -8,11 +8,12 @@ edited: 2020.10.01
 ## Work to be done
 1. default wallet handler independent of indy
 2. run aries agent in docker
-3. [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
-4. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
-5. auto response to connection protocols, configurable
-6. [did exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange)   
-7. add option to initialize/use indy wallet
+3. webhook (like acapy) keep in mind future use might use something other than RESTFUL
+4. [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
+5. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
+6. auto response to connection protocols, configurable
+7. [did exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange)   
+8. add option to initialize/use indy wallet
 
 ## Decisions to be done
 1. Will the host handle different transport layers or should different hosts be used to provide
