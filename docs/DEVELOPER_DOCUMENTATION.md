@@ -1,5 +1,8 @@
 # Developer Documentation
 
+###
+Consider creating a [rustfmt.toml](https://rust-lang.github.io/rustfmt/?version=master&search=) to enforce formatting
+
 ## Style Conventions
 
 Generally speaking, code will be stylized following industry standard for the rust language.
