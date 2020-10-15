@@ -27,9 +27,9 @@ args:
           - agent
           - agency
   - walletType:
-      help: wallet storage for agent
+      help: wallet storage for agent. Basic is file based and indy is using indy-sdk wallets
       short: w
-      long: wallet
+      long: wallet-type
       takes_value: true
       possible_values:
         - basic

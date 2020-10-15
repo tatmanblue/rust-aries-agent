@@ -10,6 +10,9 @@ and is compatible with other existing agents such as [ACAPY](https://github.com/
 The secondary goal of this project will be to create an agency for using the aries agent created in 
 the first goal stated above.
 
+### Using Rust Aries Agent
+Instructions for how to configure environment and running the project are maintained [here](docs/USING.md)
+
 ## Projects
 
 Short term, keep in mind that the architecture of the services is in flux as we work through
