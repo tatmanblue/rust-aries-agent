@@ -26,3 +26,11 @@ args:
       possible_values:
           - agent
           - agency
+  - walletType:
+      help: wallet storage for agent
+      short: w
+      long: wallet
+      takes_value: true
+      possible_values:
+        - basic
+        - indy

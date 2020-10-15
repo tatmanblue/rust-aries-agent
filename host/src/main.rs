@@ -21,6 +21,7 @@ use tokio;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
 use hosting::{HostingFactory, HostingTypes};
+use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
 use AriesShared::ProtocolMessages::{
 	ErrorResponse,
 	GenericResponse,
@@ -29,7 +30,8 @@ use AriesShared::ProtocolMessages::{
 
 struct Config {
 	host: String,
-	host_type: HostingTypes
+	host_type: HostingTypes,
+	wallet_type: WalletTypes
 }
 
 impl Config {
@@ -39,10 +41,12 @@ impl Config {
 
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
+		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(options.value_of("walletType").unwrap_or("Basic"));
 
 		Config {
 			host: host.to_string(),
-			host_type
+			host_type,
+			wallet_type
 		}
 	}
 
@@ -50,9 +54,10 @@ impl Config {
 		println!();
 		println!("----------------------------------------");
 		println!();
-		println!("    Port {}", self.host);
-		println!("    As   {:?}", self.host_type);
+		println!("    Port  {}", self.host);
+		println!("    As    {:?}", self.host_type);
 		println!();
+		println!("    Wallet {:?}", self.wallet_type);
 		println!("----------------------------------------");
 		println!();
 	}
@@ -80,11 +85,11 @@ fn run_host() {
 		let message: BasicMessage = req.body_json().await.unwrap();
 		match CONFIG.host_type.receive_basic_message(message) {
 			Ok(_success) => {
-				let mut res = Response::new(200);
+				let res = Response::new(200);
 				Ok(res)
 			},
 			_ => {
-				let mut res = Response::new(500);
+				let res = Response::new(500);
 				Ok(res)
 			}
 		}
