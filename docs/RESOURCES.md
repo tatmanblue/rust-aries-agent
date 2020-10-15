@@ -12,5 +12,6 @@
  
 
 ## Documentation
+[Clap](https://crates.io/crates/clap) for commandline processing  
 [Locale](https://en.wikipedia.org/wiki/Language_localisation)  
 [Tide](https://docs.rs/tide/0.13.0/tide/)  

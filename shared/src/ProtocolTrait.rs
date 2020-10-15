@@ -1,12 +1,12 @@
 use crate::ProtocolMessages:: {
     ErrorResponse,
     GenericResponse,
-    BasicMessage::BasicMessage
+    BasicMessage
 };
 
 /*
     Agents must implement this trait.
-    each method is to handle an aries procotol message and provide appropriate reply.
+    each method is to handle an aries protocol message and provide appropriate reply.
  */
 pub trait ProtocolTrait {
     // simply reports the status of the agent

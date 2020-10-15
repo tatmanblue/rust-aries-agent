@@ -1,31 +1,10 @@
 use std::io::Error;
-use chrono::DateTime;
 use chrono::Utc;
 
 use crate::Locale::Locales;
 
-// Expected input for BasicMessage input, RFC '0095-basic-message'
-//
-//
-#[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct BasicMessage {
-    #[serde(rename = "@id")]
-    pub id: String,
-    #[serde(rename = "@type")]
-    pub type_field: String,
-    #[serde(rename = "~l10n")]
-    pub l10n: L10N,
-    #[serde(rename = "sent_time")]
-    pub sent_time: DateTime<Utc>,
-    pub content: String,
-}
+use super::{BasicMessage, L10N};
 
-#[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct L10N {
-    pub locale: Locales,
-}
 
 impl BasicMessage {
     pub fn new(id: &str, content: &str) -> BasicMessage {

@@ -1,7 +1,7 @@
 use AriesShared::ProtocolMessages::{
     ErrorResponse,
     GenericResponse,
-    BasicMessage::BasicMessage
+    BasicMessage
 };
 use AriesShared::ProtocolTrait::ProtocolTrait;
 

@@ -3,7 +3,7 @@ use AriesAgent::AgentProtocol::AgentProtocol;
 use AriesShared::ProtocolMessages::{
     ErrorResponse,
     GenericResponse,
-    BasicMessage::BasicMessage
+    BasicMessage
 };
 use AriesShared::ProtocolTrait::ProtocolTrait;
 

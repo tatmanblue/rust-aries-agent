@@ -25,7 +25,7 @@ use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
 use AriesShared::ProtocolMessages::{
 	ErrorResponse,
 	GenericResponse,
-	BasicMessage::BasicMessage
+	BasicMessage
 };
 
 struct Config {
@@ -41,7 +41,8 @@ impl Config {
 
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
-		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(options.value_of("walletType").unwrap_or("Basic"));
+		let wallet_config: &str = options.value_of("walletConfig").unwrap_or("");
+		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(options.value_of("walletType").unwrap_or("Basic"), wallet_config);
 
 		Config {
 			host: host.to_string(),

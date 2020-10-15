@@ -1,7 +1,7 @@
-name: yaml_app
+name: rust-aries-host
 version: "1.0"
-about: an example using a .yaml file to build a CLI
-author: Kevin K. <kbknapp@gmail.com>
+about: configuration for rust-aries-agent host app
+author: Matt Raffel <matt.raffel@gmail.com>
 
 # AppSettings can be defined as a list and are **not** ascii case sensitive
 settings:
@@ -34,3 +34,8 @@ args:
       possible_values:
         - basic
         - indy
+  - walletConfig:
+      help: input for configuring wallet. see docs for details.  its likely to be json format specific for type
+      short: c
+      long: wallet-config
+      takes_value: true
