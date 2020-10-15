@@ -1,4 +1,4 @@
-
+use std::fs;
 use std::io::Error;
 use std::path::Path;
 use super::WalletTrait;
@@ -46,9 +46,18 @@ impl BasicWalletConfig {
         let path: &Path = Path::new(&self.file_name);
         println!("wallet file is '{:?}'", path.to_str());
 
-        BasicWallet {
+        let wallet_json: String = match fs::read_to_string(&self.file_name) {
+            Ok(success) => success,
+            Err(_) => "{}".to_string()
+        };
+        let wallet: BasicWallet = match BasicWallet::from_json(&wallet_json) {
+            Ok(success) => success,
+            Err(_) => BasicWallet {
 
-        }
+            }
+        };
+
+        wallet
     }
 }
 
@@ -56,6 +65,11 @@ impl BasicWalletConfig {
 // Implementation for BasicWallet
 
 impl BasicWallet {
+    fn from_json(json: &str) -> Result<BasicWallet, Error> {
+        let wallet: BasicWallet = serde_json::from_str(json)?;
+        Ok(wallet)
+    }
+
     pub fn new(wallet_config: &str) -> BasicWallet {
 
         let config: BasicWalletConfig = match BasicWalletConfig::from_json(wallet_config) {
