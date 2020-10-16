@@ -14,7 +14,6 @@ extern crate aries_shared as AriesShared;
 
 // our imported mods
 use env_logger::Env;
-use std::env;
 
 
 // our mods, and keep them alphabetical

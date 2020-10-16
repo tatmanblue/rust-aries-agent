@@ -1,19 +1,23 @@
 # How to use
 Currently, the only way to run aries-rust-agent is to run it from source code on the commandline.
 
-## Installation
+## Installation and running
 
 1. Install [rust](https://www.rust-lang.org/tools/install)
-2. Get the source code
+2. open a command shell and create a working directory.
+3. Get the source code
     ```
     git clone https://github.com/tatmanblue/rust-aries-agent.git
     ```
-3. Run the host app from the command line
+4. Run the host app from the command line
     ```
     cd host
     cargo run -- --host 127.0.0.1:8000 --role agent --wallet-type basic
     ```
 
+You will not see a lot of output and it my appear like its not functioning.  To see the app output,
+you need to set `RUST_LOG` environment variable.  The simplest is to set it to `debug`.  You are free
+to set it how you like. Please refer to the [rust documentation](https://rust-lang-nursery.github.io/rust-cookbook/development_tools/debugging/config_log.html).  
 
 
 ## Command Line Argument Reference
@@ -32,8 +36,11 @@ Currently, the only way to run aries-rust-agent is to run it from source code on
 | ---- | ----- | ------- | ------- |
 
 #### --wallet-type basic --wallet-config
+When `--wallet-type` is  set to `basic` the argument `--wallet-config` will expect a json string for configuration.
 
 ```{"filename":"mywallet.json", "reset": false}```
+
+If the value is not provided or has errors, the default will be used.
 
 #### --wallet-type indy --wallet-config
 Note: currently not implemented

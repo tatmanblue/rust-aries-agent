@@ -11,7 +11,8 @@ settings:
 # key to a Hash object
 #
 # ToThink():
-#  1 once we support both agent and agency, will need input for which one
+#  1 as this list grows it might be easier to have the app initialize from
+#    a json or yaml config file.
 args:
   - host:
       help: ip/port host will use to listen to request such as 127.0.0.1:8000
@@ -19,7 +20,7 @@ args:
       long: host
       takes_value: true
   - role:
-      help: agent or agency.
+      help: describes overall behavior of app.  Either acting as an agent or agency.
       short: r
       long: role
       takes_value: true

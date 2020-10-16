@@ -1,6 +1,6 @@
 use std::fs;
 use std::io::Error;
-use std::path::Path;
+
 use super::WalletTrait;
 
 lazy_static! {
@@ -19,10 +19,12 @@ struct BasicWalletConfig {
 }
 
 //
-// this is the basic wallet "database"
+// this is the basic wallet "database".  this is not intended to be a production wallet.  it
+// is here to get things going.
+//
 // create will create a new empty database
 // open will read from disk at BasicWalletConfig.file_name.  if it cannot find it, create it
-//
+// any kind of errors on read will cause new wallet to be created
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BasicWallet {
