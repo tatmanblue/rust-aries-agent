@@ -43,8 +43,6 @@ impl BasicWalletConfig {
         // 1 - reset = true
         // 2 - file does not exist
         // 3 - file fails to serialize
-        let path: &Path = Path::new(&self.file_name);
-        println!("wallet file is '{:?}'", path.to_str());
 
         let wallet_json: String = match fs::read_to_string(&self.file_name) {
             Ok(success) => success,
@@ -75,7 +73,7 @@ impl BasicWallet {
         let config: BasicWalletConfig = match BasicWalletConfig::from_json(wallet_config) {
             Ok(success) => success,
             Err(e) => {
-                println!("did not understand wallet-config, using default: {:?}", e);
+                error!("did not understand wallet-config, using default: {:?}", e);
                 BasicWalletConfig{ file_name: "test.json".to_string(), reset: Some(true)}
             }
         };
@@ -83,6 +81,9 @@ impl BasicWallet {
         config.loadBasicWallet()
     }
 }
+
+// ----------------------------------------------------------------------------------
+// Implementation WalletTrait for BasicWallet
 
 impl WalletTrait for BasicWallet {
     fn create(&self) {

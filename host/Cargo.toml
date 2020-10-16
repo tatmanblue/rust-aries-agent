@@ -16,9 +16,15 @@ aries-agent = { path = "../agent" }
 aries-shared = { path = "../shared" }
 
 clap = {version = "2.33.1", features = ["yaml"]}
+env_logger = "0.7.1"
 http = "0.2.1"
 lazy_static = "1.4.0"
+log = "0.4.0"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 tide = "0.13.0"
 tokio = "0.2.22"
+
+[log]
+# max level to log
+level = "debug"

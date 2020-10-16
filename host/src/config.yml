@@ -1,7 +1,7 @@
 name: rust-aries-host
 version: "1.0"
 about: configuration for rust-aries-agent host app
-author: Matt Raffel <matt.raffel@gmail.com>
+author: tatmanblue <Matt.Raffel@gmail.com>
 
 # AppSettings can be defined as a list and are **not** ascii case sensitive
 settings:

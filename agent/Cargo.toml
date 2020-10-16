@@ -11,3 +11,5 @@ edition = "2018"
 # our share project
 aries-shared = { path = "../shared" }
 
+log = "0.4.0"
+

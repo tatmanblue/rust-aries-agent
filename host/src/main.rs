@@ -1,14 +1,21 @@
 #![allow(unused_must_use)]
 
+#[macro_use]
+extern crate clap;
+#[macro_use]
+extern crate lazy_static;
+#[macro_use]
+extern crate log;
+
 // our dependencies, and keep them alphabetical
 extern crate aries_agency as AriesAgency;
 extern crate aries_agent as AriesAgent;
 extern crate aries_shared as AriesShared;
 
-#[macro_use]
-extern crate clap;
-#[macro_use]
-extern crate lazy_static;
+// our imported mods
+use env_logger::Env;
+use std::env;
+
 
 // our mods, and keep them alphabetical
 mod hosting;
@@ -42,6 +49,8 @@ impl Config {
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
 		let wallet_config: &str = options.value_of("walletConfig").unwrap_or("");
+		// toThink(): this function breaks the rule of new for config type as we are now actually opening
+		// a wallet
 		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(options.value_of("walletType").unwrap_or("Basic"), wallet_config);
 
 		Config {
@@ -52,15 +61,15 @@ impl Config {
 	}
 
 	fn print(&self) {
-		println!();
-		println!("----------------------------------------");
-		println!();
-		println!("    Port  {}", self.host);
-		println!("    As    {:?}", self.host_type);
-		println!();
-		println!("    Wallet {:?}", self.wallet_type);
-		println!("----------------------------------------");
-		println!();
+		info!("");
+		info!("----------------------------------------");
+		info!("");
+		info!("    Port  {}", self.host);
+		info!("    As    {:?}", self.host_type);
+		info!("");
+		info!("    Wallet {:?}", self.wallet_type);
+		info!("----------------------------------------");
+		info!("");
 	}
 }
 
@@ -69,6 +78,7 @@ lazy_static! {
 }
 
 fn run_host() {
+
 	let mut app = tide::new();
 
 	// TODO: temporary impl just to have endpoint working
@@ -101,6 +111,8 @@ fn run_host() {
 }
 
 fn main() {
+	env_logger::from_env(Env::default().default_filter_or("debug")).init();
+
 	CONFIG.print();
 	run_host();
 }
