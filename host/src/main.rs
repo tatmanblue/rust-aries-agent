@@ -27,6 +27,7 @@ use tokio;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
 use hosting::{HostingFactory, HostingTypes};
+use AriesShared::TalkBack::{TalkBackFactory, TalkBackTypes};
 use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
 use AriesShared::ProtocolMessages::{
 	ErrorResponse,
@@ -37,7 +38,8 @@ use AriesShared::ProtocolMessages::{
 struct Config {
 	host: String,
 	host_type: HostingTypes,
-	wallet_type: WalletTypes
+	wallet_type: WalletTypes,
+	talk_back_type: TalkBackTypes
 }
 
 impl Config {
@@ -46,16 +48,22 @@ impl Config {
 		let options: ArgMatches = App::from_yaml(yaml).get_matches();
 
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
-		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
 		let wallet_config: &str = options.value_of("walletConfig").unwrap_or("");
-		// toThink(): this function breaks the rule of new for config type as we are now actually opening
-		// a wallet
-		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(options.value_of("walletType").unwrap_or("Basic"), wallet_config);
+		let talk_back_config: &str = options.value_of("talkBackConfig").unwrap_or("");
+
+		// toThink(): these next functions break the rule single responsibility
+		// as services are initializing with these calls. it would be good to move this to another section
+		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
+		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(
+				options.value_of("walletType").unwrap_or("Basic"), wallet_config);
+		let talk_back_type: TalkBackTypes = TalkBackFactory::get_talk_back_handler(
+				options.value_of("talkBack").unwrap_or("none"), talk_back_config);
 
 		Config {
 			host: host.to_string(),
 			host_type,
-			wallet_type
+			wallet_type,
+			talk_back_type
 		}
 	}
 

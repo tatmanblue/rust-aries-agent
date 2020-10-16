@@ -10,7 +10,7 @@ settings:
 # All Args must be defined in the 'args:' list where the name of the arg, is the
 # key to a Hash object
 #
-# ToThink():
+# toThink():
 #  1 as this list grows it might be easier to have the app initialize from
 #    a json or yaml config file.
 args:
@@ -28,7 +28,7 @@ args:
           - agent
           - agency
   - walletType:
-      help: wallet storage for agent. Basic is file based and indy is using indy-sdk wallets
+      help: wallet storage for agent. Basic is file based and indy is using indy-sdk wallets. Defaults to basic
       short: w
       long: wallet-type
       takes_value: true
@@ -40,3 +40,18 @@ args:
       short: c
       long: wallet-config
       takes_value: true
+  - talkBack:
+      help: (optional) host will send responses on this channel. useful for automating protocol actions between agents. like acapy webhook
+      short: t
+      long: talk-back
+      takes_value: true
+      possible_values:
+        - none
+        - http
+  - talkBackConfig:
+      help: input for configuring talkback. see docs for details.  its likely to be json format specific for type
+      short: b
+      long: talk-back-config
+      takes_value: true
+
+

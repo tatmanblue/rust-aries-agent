@@ -12,4 +12,5 @@ pub mod Constants;
 pub mod Locale;
 pub mod ProtocolMessages;
 pub mod ProtocolTrait;
+pub mod TalkBack;
 pub mod Wallets;

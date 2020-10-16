@@ -26,14 +26,16 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 ### Required Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
-| --host | -h  | ip/port host will use to listen to request such |  127.0.0.1:8000 |
-| --role | -r  | identifies behavior between agent or agency, valid values are agent, agency | agent |
-| --wallet-type | -w  | indicates which wallet format is used, valid values are basic, indy | basic |
-| --wallet-config | -c  | input for configuring wallet. input is specific to value passed to --wallet-type |  |
+| host | h  | ip/port host will use to listen to request such |  127.0.0.1:8000 |
+| role | r  | identifies behavior between agent or agency, valid values are agent, agency | agent |
+| wallet-type | w  | indicates which wallet format is used, valid values are basic, indy | basic |
+| wallet-config | c  | input for configuring wallet. input is specific to value passed to --wallet-type |  |
 
 ### Optional Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
+| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to automatically handle messages. like acapy webhook, for now only valid values are none, http | http |
+| talk-back-config | b | configuration for the talkback channel.  json. format depends on --talk-back value | |
 
 #### --wallet-type basic --wallet-config
 When `--wallet-type` is  set to `basic` the argument `--wallet-config` will expect a json string for configuration.
@@ -44,5 +46,13 @@ If the value is not provided or has errors, the default will be used.
 
 #### --wallet-type indy --wallet-config
 Note: currently not implemented
+
+#### --talk-back http --talk-back-config
+When `--talk-back` is set to `http`, aries agents will send responses on that channel.  For http use,
+value passed to `--talk-back-config` is the URL aries agents will send their response.
+
+```
+    --talk-back http --talk-back-config "http://localhost:5001"
+```
 
 
