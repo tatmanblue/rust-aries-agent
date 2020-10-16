@@ -46,12 +46,18 @@ impl BasicWalletConfig {
 
         let wallet_json: String = match fs::read_to_string(&self.file_name) {
             Ok(success) => success,
-            Err(_) => "{}".to_string()
+            Err(e) => {
+                debug!("error reading file for basic wallet: {:?}", e);
+                "{}".to_string()
+            }
         };
         let wallet: BasicWallet = match BasicWallet::from_json(&wallet_json) {
             Ok(success) => success,
-            Err(_) => BasicWallet {
-
+            Err(e) => {
+                debug!("error deserializing basic wallet: {:?}", e);
+                warn!("defaulting to new basic wallet.");
+                BasicWallet {
+                }
             }
         };
 

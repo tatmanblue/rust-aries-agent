@@ -7,7 +7,7 @@ edited: 2020.10.01
 
 ## Work to be done
 1. default wallet handler independent of indy. Handler in place, specifics need to be finished
-2. implement logging
+2. (done) implement logging
 3. webhook (like acapy) keep in mind future use might use something other than RESTFUL
 4. run aries agent in docker
 5. [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
