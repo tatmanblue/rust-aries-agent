@@ -11,8 +11,10 @@
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
 [Indy Node](https://github.com/hyperledger/indy-node)  
  
-
 ## Documentation
-[Clap](https://crates.io/crates/clap) for commandline processing  
 [Locale](https://en.wikipedia.org/wiki/Language_localisation)  
+
+## Rust crate documentation
+[Clap](https://crates.io/crates/clap) for commandline processing  
+[Reqwest](https://crates.io/crates/reqwest) http client  
 [Tide](https://docs.rs/tide/0.13.0/tide/)  for http hosting  

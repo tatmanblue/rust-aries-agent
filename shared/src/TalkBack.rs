@@ -18,7 +18,7 @@ pub enum TalkBackTypes {
 
 // TODO: this is work in progress
 pub trait TalkBackTrait {
-    fn sendMessage(topic: &str, sub_topic: &str, message: &str);   // TBD
+    fn sendMessage(&self, topic: &str, sub_topic: &str, message: &str);   // TBD
 }
 
 pub struct TalkBackFactory {}
@@ -36,7 +36,7 @@ impl TalkBackFactory {
 pub struct NoneTalkBackHandler {}
 
 impl TalkBackTrait for NoneTalkBackHandler {
-    fn sendMessage(_topic: &str, _sub_topic: &str, _message: &str) {
+    fn sendMessage(&self, _topic: &str, _sub_topic: &str, _message: &str) {
         debug!("no talk back handler has been defined");
     }
 }
@@ -55,8 +55,13 @@ pub struct HttpTalkbackHandler {
 }
 
 impl TalkBackTrait for HttpTalkbackHandler {
-    fn sendMessage(topic: &str, sub_topic: &str, message: &str) {
-        // TODO:
+    fn sendMessage(&self, topic: &str, sub_topic: &str, message: &str) {
         debug!("http talkBack enabled {:?}/{:?} data {:?}", topic, sub_topic, message);
+
+        let url: String = format!("{}/{}/{}", self.url, topic, sub_topic);
+        let client = reqwest::blocking::Client::new();
+        let _res = client.post(&url)
+            .body(message.to_string())
+            .send();
     }
 }

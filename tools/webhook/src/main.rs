@@ -28,7 +28,7 @@ async fn main()  -> Result<()> {
         let data: String = req.body_string().await?;
         println!("- {} ----------------------------------------------------------------------- {} ---",
                  print_count, print_count);
-        println!("/{}/{}\r\n\t{}\r\n", topic, subtopic, data);
+        println!("/{}/{}\r\n{}\r\n", topic, subtopic, data);
         Ok("ok")
     });
 
