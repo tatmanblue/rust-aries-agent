@@ -6,8 +6,8 @@ Generally speaking, the goal is to get agent [Aries Interop 1.0 compliant](https
 edited: 2020.10.01
 
 ## Work to be done
-1. default wallet handler independent of indy. Handler in place, specifics need to be finished
-3. (needs testing) webhook (like acapy) keep in mind future use might use something other than RESTFUL
+1. default wallet handler independent of indy. Handler in place, specifics will be finished as neded
+3. (needs testing) webhook 
 4. run aries agent in docker
 5. [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
 6. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)

@@ -3,6 +3,11 @@
 The host is responsible for assembling the application that makes [agents](../agent/README.md) and 
 [agencies](../agency/README.md) communicating with other agents.
 
+## Running the Host
+Setup and command line reference is maintainted [here](../docs/USING.md).
+
+There are also some [scripts](../tools) made to help as well.
+
 ## Version 1
 This particular host will support agents (and agencies) through RESTFul apis as used in other agent implements.
 

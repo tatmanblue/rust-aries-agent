@@ -37,7 +37,7 @@ Please see [Order of Work](docs/ORDER_OF_WORK.md) to understand what current dev
 [Aries RFCS](https://github.com/hyperledger/aries-rfcs)
 
 # License
-Please see [LICENSE.md](./LICENSE.md).  
+Please see [LICENSE](./LICENSE).  
 
 ## Status
 Initial/Concept

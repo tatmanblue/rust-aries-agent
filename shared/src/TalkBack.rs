@@ -46,10 +46,12 @@ impl TalkBackTrait for NoneTalkBackHandler {
 // url is user defined.  It could be something like http://localhost:5001 or
 // http://localhost:5001/talkback
 //
-// A topic and subtopic will become additional routes added to the url. All calls
-// are POST so it would be something like this:
+// It will also send the message as POST with message sent in the body, expecting message
+// to be formatted as json.
+//
+// The topic and subtopic will become additional routes added to the url
+// so it would be something like this:
 // POST http://localhost:5001/topic/subtopic
-// body will be the message
 pub struct HttpTalkbackHandler {
     pub url: String
 }
@@ -59,9 +61,13 @@ impl TalkBackTrait for HttpTalkbackHandler {
         debug!("http talkBack enabled {:?}/{:?} data {:?}", topic, sub_topic, message);
 
         let url: String = format!("{}/{}/{}", self.url, topic, sub_topic);
+
+        // TODO: make this post async
         let client = reqwest::blocking::Client::new();
         let _res = client.post(&url)
             .body(message.to_string())
             .send();
+
+        // TODO: report on error as it may help with debugging/support
     }
 }
