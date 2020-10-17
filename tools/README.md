@@ -22,6 +22,6 @@ Most scripts expect you have all code and environment configured correctly. [See
 ### Linux/MacOS Bash Scripts
 | file | purpose |
 | ---- | ------- |
-
+| runhost.sh | Runs host with standard configuration |
 
 
