@@ -3,7 +3,7 @@
 This document describes work that needs to be done, and should be considered list by priority with highest priority first.
 Generally speaking, the goal is to get agent [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10)
 
-edited: 2020.10.01
+edited: 2020.10.18
 
 ## Work to be done
 1. default wallet handler independent of indy. Handler in place, specifics will be finished as neded
@@ -18,3 +18,6 @@ edited: 2020.10.01
 ## Decisions to be done
 1. Will the host handle different transport layers or should different hosts be used to provide
 the different transport layers (eg: gRPC, websockets, etc....)
+
+## Additional Developer information
+Additional information for developers and contributors can be found [here](./DEVELOPER_DOCUMENTATION.md).
