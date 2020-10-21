@@ -5,7 +5,7 @@ use AriesShared::ProtocolMessages::{
 };
 use AriesShared::ProtocolTrait::ProtocolTrait;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct AgencyProtocol {
 
 }

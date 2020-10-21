@@ -22,7 +22,7 @@ use AriesShared::ProtocolTrait::ProtocolTrait;
     // and will reorganize as pattern emerges
 
 */
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum HostedRoleTypes {
     Agent(AgentProtocol),
     Agency(AgencyProtocol)
@@ -55,18 +55,13 @@ impl ProtocolTrait for HostedRoleTypes {
     }
 }
 
-// TODO: is a structure really needed here?
-pub struct HostingRoleTypeFactory {}
-
 /*
     This factory finalized our version of DI by returning the correctly initialized "type"
  */
-impl HostingRoleTypeFactory {
-    pub fn get_agent_or_agency(role_type: &str) -> HostedRoleTypes {
-        // TODO: initialization of
-        match role_type.to_lowercase().as_str() {
-            "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
-            _ => HostedRoleTypes::Agent(AgentProtocol {})
-        }
+pub fn get_agent_or_agency(role_type: &str) -> HostedRoleTypes {
+    // TODO: initialization of agent or agency
+    match role_type.to_lowercase().as_str() {
+        "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
+        _ => HostedRoleTypes::Agent(AgentProtocol {})
     }
 }
