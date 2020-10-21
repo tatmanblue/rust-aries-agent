@@ -1,4 +1,5 @@
-#![allow(unused_must_use)]
+// #![allow(unused_must_use)]			// TODO: turn these off
+// #![allow(unused_imports)]			// TODO: turn these off
 
 #[macro_use]
 extern crate clap;
@@ -15,31 +16,23 @@ extern crate aries_shared as AriesShared;
 // our imported mods
 use env_logger::Env;
 
-
 // our mods, and keep them alphabetical
 mod hosting;
+mod router;
 
 // dependency use statements, and keep them alphabetical
-use AriesShared::ProtocolTrait::ProtocolTrait;
 use clap::{App, ArgMatches};
-use tide::*;
-use tokio;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
-use hosting::{HostingFactory, HostingTypes};
-use AriesShared::TalkBack::{TalkBackFactory, TalkBackTypes};
-use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
-use AriesShared::ProtocolMessages::{
-	ErrorResponse,
-	GenericResponse,
-	BasicMessage
-};
+use router::{Router, map_all_routes, run_router};
 
 struct Config {
 	host: String,
-	host_type: HostingTypes,
-	wallet_type: WalletTypes,
-	talk_back_type: TalkBackTypes
+	role: String,			// host_type
+	wallet_type: String,
+	wallet_config: String,
+	talk_back_type: String,
+	talk_back_config: String
 }
 
 impl Config {
@@ -50,20 +43,17 @@ impl Config {
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		let wallet_config: &str = options.value_of("walletConfig").unwrap_or("");
 		let talk_back_config: &str = options.value_of("talkBackConfig").unwrap_or("");
-
-		// toThink(): these next functions break the rule single responsibility
-		// as services are initializing with these calls. it would be good to move this to another section
-		let host_type: HostingTypes = HostingFactory::get_agent_or_agency(options.value_of("role").unwrap_or("Agent"));
-		let wallet_type: WalletTypes = WalletTypeFactory::get_wallet_handler(
-				options.value_of("walletType").unwrap_or("Basic"), wallet_config);
-		let talk_back_type: TalkBackTypes = TalkBackFactory::get_talk_back_handler(
-				options.value_of("talkBack").unwrap_or("none"), talk_back_config);
+		let role: &str = options.value_of("role").unwrap_or("Agent");
+		let wallet_type: &str = options.value_of("walletType").unwrap_or("Basic");
+		let talk_back_type: &str = options.value_of("talkBack").unwrap_or("none");
 
 		Config {
 			host: host.to_string(),
-			host_type,
-			wallet_type,
-			talk_back_type
+			role: role.to_string(),
+			wallet_type: wallet_type.to_string(),
+			wallet_config: wallet_config.to_string(),
+			talk_back_type: talk_back_type.to_string(),
+			talk_back_config: talk_back_config.to_string()
 		}
 	}
 
@@ -72,7 +62,7 @@ impl Config {
 		info!("----------------------------------------");
 		info!("");
 		info!("    Port  {}", self.host);
-		info!("    As    {:?}", self.host_type);
+		info!("    As    {:?}", self.role);
 		info!("");
 		info!("    Wallet {:?}", self.wallet_type);
 		info!("----------------------------------------");
@@ -84,37 +74,12 @@ lazy_static! {
 	static ref CONFIG: Config = Config::new();
 }
 
+// TODO: someday this method should be data drive to load a "router" based on configuration
+// (if we decide one host handles multiple input types)
 fn run_host() {
-
-	let mut app = tide::new();
-
-	// TODO: temporary impl just to have endpoint working
-	app.at("/").get(|_| async move {
-		CONFIG.host_type.status();
-		Ok("ok")
-	});
-	
-	// TODO: make all routing handled in a different place,
-	//       prob something more data driven.  Below is just
-	//       temporary while proving out a few things
-	// FUTURE PRs will not be allowed to add new routes here
-	// TODO: need to confirm api end point
-	app.at("/basicmessage").post(|mut req: tide::Request<()>| async move {
-		let message: BasicMessage = req.body_json().await.unwrap();
-		match CONFIG.host_type.receive_basic_message(message) {
-			Ok(_success) => {
-				let res = Response::new(200);
-				Ok(res)
-			},
-			_ => {
-				let res = Response::new(500);
-				Ok(res)
-			}
-		}
-	});
-
-	let mut rt = tokio::runtime::Runtime::new().unwrap();
-	rt.block_on(app.listen(CONFIG.host.to_string()));
+	let mut router: Router = Router::new(&CONFIG.role);
+	map_all_routes(router);
+	// run_router(router, &CONFIG.host);
 }
 
 fn main() {

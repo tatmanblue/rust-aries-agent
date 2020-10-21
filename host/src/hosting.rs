@@ -9,9 +9,9 @@ use AriesShared::ProtocolTrait::ProtocolTrait;
 
 
 /**
-    Think of HostingTypes and `impl ProtocolTrait` as poor man's DI in rust.
+    Think of HostedRoleTypes and `impl ProtocolTrait` as poor man's DI in rust.
 
-    HostingTypes enums becomes a "placeholder" (so to speak) of the concrete implementation of
+    HostedRoleTypes enums becomes a "placeholder" (so to speak) of the concrete implementation of
     ProtocolTrait which handles the specific implementation.   This allows getting around "known size"
     requirements rust has on return types.
 
@@ -19,11 +19,11 @@ use AriesShared::ProtocolTrait::ProtocolTrait;
     without breaking existing implementations
 
     // ToThink(): the enum and structure may need to be in a different library
-    // but will reorganize as pattern emerges
+    // and will reorganize as pattern emerges
 
 */
 #[derive(Debug)]
-pub enum HostingTypes {
+pub enum HostedRoleTypes {
     Agent(AgentProtocol),
     Agency(AgencyProtocol)
 }
@@ -39,33 +39,34 @@ pub enum HostingTypes {
 
     The concrete implementation are in their respective libraries.
 */
-impl ProtocolTrait for HostingTypes {
+impl ProtocolTrait for HostedRoleTypes {
     fn status(&self) {
         match *self {
-            HostingTypes::Agent(ref handler) => handler.status(),
-            HostingTypes::Agency(ref handler) => handler.status(),
+            HostedRoleTypes::Agent(ref handler) => handler.status(),
+            HostedRoleTypes::Agency(ref handler) => handler.status(),
         }
     }
 
     fn receive_basic_message(&self, message: BasicMessage)  -> Result<GenericResponse, ErrorResponse> {
         match *self {
-            HostingTypes::Agent(ref handler) => handler.receive_basic_message(message),
-            HostingTypes::Agency(ref handler) => handler.receive_basic_message(message),
+            HostedRoleTypes::Agent(ref handler) => handler.receive_basic_message(message),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_basic_message(message),
         }
     }
 }
 
-pub struct HostingFactory {}
+// TODO: is a structure really needed here?
+pub struct HostingRoleTypeFactory {}
 
 /*
     This factory finalized our version of DI by returning the correctly initialized "type"
  */
-impl HostingFactory {
-    pub fn get_agent_or_agency(hosting_type: &str) -> HostingTypes {
+impl HostingRoleTypeFactory {
+    pub fn get_agent_or_agency(role_type: &str) -> HostedRoleTypes {
         // TODO: initialization of
-        match hosting_type.to_lowercase().as_str() {
-            "agency" => HostingTypes::Agency(AgencyProtocol {}),
-            _ => HostingTypes::Agent(AgentProtocol {})
+        match role_type.to_lowercase().as_str() {
+            "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
+            _ => HostedRoleTypes::Agent(AgentProtocol {})
         }
     }
 }
