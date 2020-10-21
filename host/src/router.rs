@@ -8,39 +8,36 @@ use AriesShared::ProtocolTrait::ProtocolTrait;
 use super::hosting::{HostingRoleTypeFactory, HostedRoleTypes};
 
 pub struct Router {
-    app: Server<()>,
+    app: Server<RouterConfig>
+}
+
+#[derive(Debug, Clone)]
+pub struct RouterConfig {
     role: String
 }
 
-pub fn new_router(role: &'static str) -> Router {
-    let mut app: Server<()> = tide::new();
+//impl Copy for RouterConfig {}
 
-    /*
-    app.at("/status").get(|_ : Request<()>| async {
-        info!("status will come from {:?}", role.to_string());
-        Ok("ok")
-    });
-
-    app.at("/connections/create-invitation").post(|_ : Request<()>| async {
-        // todo get body
-        Ok("ok")
-    }); */
+pub fn new_router(routing_role: &str) -> Router {
+    let config: RouterConfig = RouterConfig {
+      role: routing_role.to_string()
+    };
+    let mut app: Server<RouterConfig> = Server::with_state(config);
 
     let result: Router = Router {
-        app,
-        role: role.to_string()
+        app
     };
 
     result
 }
 
 pub fn map_all_routes(mut router: Router) {
-    router.app.at("/status").get(|_ : Request<()>| async {
+    router.app.at("/status").get(|_ : Request<RouterConfig>| async {
         // info!("status will come from {:?}", router.role);
         Ok("ok")
     });
 
-    router.app.at("/connections/create-invitation").post(|_ : Request<()>| async {
+    router.app.at("/connections/create-invitation").post(|_ : Request<RouterConfig>| async {
         // todo get body
         Ok("ok")
     });
@@ -53,11 +50,13 @@ pub fn run_router(router: Router, host: &str) {
 }
 
 impl Router {
-    pub fn new(role: &str) -> Router {
-        let app: Server<()> = tide::new();
+    pub fn new(routing_role: &str) -> Router {
+        let config: RouterConfig = RouterConfig {
+            role:  routing_role.to_string()
+        };
+        let mut app: Server<RouterConfig> = Server::with_state(config);
         Router {
             app,
-            role: role.to_string()
         }
     }
 
@@ -67,12 +66,12 @@ impl Router {
     }
 
     pub fn map_all_routes(&mut self) {
-        self.app.at("/status").get( |_ : Request<()>| async {
+        self.app.at("/status").get( |_ : Request<(RouterConfig)>| async {
             // info!("status will come from {:?}", router.role);
             Ok("ok")
         });
 
-        self.app.at("/connections/create-invitation").post(|_ : Request<()>| async {
+        self.app.at("/connections/create-invitation").post(|_ : Request<(RouterConfig)>| async {
             // todo get body
             // self.host_type.create_invitiation();
             Ok("ok")
