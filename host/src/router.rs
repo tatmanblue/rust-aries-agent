@@ -21,7 +21,7 @@ impl Router {
         let config: RouterConfig = RouterConfig {
             role:  routing_role.to_string()
         };
-        let mut app: Server<RouterConfig> = Server::with_state(config);
+        let app: Server<RouterConfig> = Server::with_state(config);
         Router {
             app,
         }
@@ -33,14 +33,15 @@ impl Router {
     }
 
     pub fn map_all_routes(&mut self) {
-        self.app.at("/status").get( |_ : Request<(RouterConfig)>| async {
-            // info!("status will come from {:?}", router.role);
+        self.app.at("/status").get( |request : Request<RouterConfig>| async move {
+            let state: &RouterConfig = request.state();
+            info!("status will come from {:?}", state.role);
             Ok("ok")
         });
 
-        self.app.at("/connections/create-invitation").post(|_ : Request<(RouterConfig)>| async {
-            // todo get body
-            // self.host_type.create_invitiation();
+        self.app.at("/connections/create-invitation").post(|request : Request<RouterConfig>| async move {
+            let state: &RouterConfig = request.state();
+            info!("status will come from {:?}", state.role);
             Ok("ok")
         });
     }

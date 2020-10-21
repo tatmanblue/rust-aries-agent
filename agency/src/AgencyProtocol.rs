@@ -14,7 +14,7 @@ impl ProtocolTrait for AgencyProtocol {
     fn status(&self) {
         println!("AgencyProtocol implementation");
     }
-    fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
+    fn receive_basic_message(&self, _: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
         todo!()
     }
 }
