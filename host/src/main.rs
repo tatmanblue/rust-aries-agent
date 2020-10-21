@@ -20,20 +20,20 @@ use env_logger::Env;
 mod hosting;
 
 // dependency use statements, and keep them alphabetical
-use AriesShared::ProtocolTrait::ProtocolTrait;
 use clap::{App, ArgMatches};
-use tide::*;
+use tide::{Request, Response, Result, Server};
 use tokio;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
 use hosting::{HostingFactory, HostingTypes};
-use AriesShared::TalkBack::{TalkBackFactory, TalkBackTypes};
-use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
 use AriesShared::ProtocolMessages::{
 	ErrorResponse,
 	GenericResponse,
 	BasicMessage
 };
+use AriesShared::ProtocolTrait::ProtocolTrait;
+use AriesShared::TalkBack::{TalkBackFactory, TalkBackTypes};
+use AriesShared::Wallets::{WalletTypeFactory, WalletTypes};
 
 struct Config {
 	host: String,
@@ -88,29 +88,20 @@ fn run_host() {
 
 	let mut app = tide::new();
 
-	// TODO: temporary impl just to have endpoint working
+	// this is not what I want.  It may be a limitation of tide.
+	// TODO: determine is needed to achieve desired architecture.
+	// Please see this branch
+	// https://github.com/tatmanblue/rust-aries-agent/tree/Ideal-Refactor/
+	// in particular pay attention to impl Router at
+	// https://github.com/tatmanblue/rust-aries-agent/blob/Ideal-Refactor/host/src/router.rs
 	app.at("/").get(|_| async move {
 		CONFIG.host_type.status();
 		Ok("ok")
 	});
 	
-	// TODO: make all routing handled in a different place,
-	//       prob something more data driven.  Below is just
-	//       temporary while proving out a few things
-	// FUTURE PRs will not be allowed to add new routes here
-	// TODO: need to confirm api end point
-	app.at("/basicmessage").post(|mut req: tide::Request<()>| async move {
-		let message: BasicMessage = req.body_json().await.unwrap();
-		match CONFIG.host_type.receive_basic_message(message) {
-			Ok(_success) => {
-				let res = Response::new(200);
-				Ok(res)
-			},
-			_ => {
-				let res = Response::new(500);
-				Ok(res)
-			}
-		}
+	app.at("/connections/create-invitation").post(|mut req: tide::Request<()>| async move {
+		CONFIG.host_type.status();
+		Ok("ok")
 	});
 
 	let mut rt = tokio::runtime::Runtime::new().unwrap();

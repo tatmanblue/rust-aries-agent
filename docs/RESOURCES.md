@@ -17,4 +17,4 @@
 ## Rust crate documentation
 [Clap](https://crates.io/crates/clap) for commandline processing  
 [Reqwest](https://crates.io/crates/reqwest) http client  
-[Tide](https://docs.rs/tide/0.13.0/tide/)  for http hosting  
+[Tide](https://docs.rs/tide/0.14.0/tide/index.html)  for http hosting  
