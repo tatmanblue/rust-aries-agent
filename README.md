@@ -1,7 +1,6 @@
 ![aries logo](https://github.com/hyperledger/aries-rfcs/blob/master/collateral/aries-rfcs-logo.png)  
 ![hyperledger indy logo](https://raw.githubusercontent.com/hyperledger/indy-node/master/collateral/logos/indy-logo.png)  
 
-
 # Rust Aries Agent
 
 The primary goal of this project is to create an aries agent compliant with the [RFCS](https://github.com/hyperledger/aries-rfcs)
