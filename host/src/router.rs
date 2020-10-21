@@ -2,6 +2,7 @@
 //
 // responsible for setting up url route to hosting mapping
 //
+use http::Error;
 use tide::{Request, Response, Result, Server};
 
 use AriesShared::ProtocolTrait::ProtocolTrait;
@@ -41,17 +42,38 @@ impl Router {
     }
 
     pub fn map_all_routes(&mut self) {
-        self.app.at("/status").get( |request : Request<RouterConfig>| async move {
-            let config: &RouterConfig = request.state();
-            config.mediator.status();
-            Ok("ok")
-        });
-
-        self.app.at("/connections/create-invitation").post(|request : Request<RouterConfig>| async move {
-            let config: &RouterConfig = request.state();
-            info!("mediator type {:?} will handle create-invitation", config.role);
-            Ok("ok")
-        });
+        self.app.at("/status").get(Router::get_status);
+        self.app.at("/connections/create-invitation").post(Router::create_invitation);
     }
 
+    // TODO:  all of these handlers are likely to get long, for sake of small readable files
+    // toThink() consider breaking these out into separate files
+    async fn get_status(request : Request<RouterConfig>) -> Result<Response> {
+        let config: &RouterConfig = request.state();
+        let mut response = Response::builder(400);
+        match config.mediator.status() {
+            Ok(status) => {
+                response = Response::builder(200).content_type("application/json").body(status.to_json());
+            },
+            Err(e) => {
+                warn!("status error {:?}", e);
+            }
+        }
+
+        Ok(response.build())
+    }
+
+    async fn create_invitation(request : Request<RouterConfig>) -> Result<Response> {
+        let config: &RouterConfig = request.state();
+        let mut response = Response::builder(400);
+        match config.mediator.receive_create_message() {
+            Ok(invite) => {
+                response = Response::builder(200).content_type("application/json").body(invite.to_json());
+            },
+            Err(e) => {
+                warn!("status error {:?}", e);
+            }
+        }
+        Ok(response.build())
+    }
 }
