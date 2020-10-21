@@ -24,7 +24,7 @@ mod router;
 use clap::{App, ArgMatches};
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
-use router::{Router, map_all_routes, run_router};
+use router::{Router};
 
 struct Config {
 	host: String,
@@ -78,8 +78,8 @@ lazy_static! {
 // (if we decide one host handles multiple input types)
 fn run_host() {
 	let mut router: Router = Router::new(&CONFIG.role);
-	map_all_routes(router);
-	// run_router(router, &CONFIG.host);
+	router.map_all_routes();
+	router.run(&CONFIG.host);
 }
 
 fn main() {

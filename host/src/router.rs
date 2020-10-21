@@ -16,39 +16,6 @@ pub struct RouterConfig {
     role: String
 }
 
-//impl Copy for RouterConfig {}
-
-pub fn new_router(routing_role: &str) -> Router {
-    let config: RouterConfig = RouterConfig {
-      role: routing_role.to_string()
-    };
-    let mut app: Server<RouterConfig> = Server::with_state(config);
-
-    let result: Router = Router {
-        app
-    };
-
-    result
-}
-
-pub fn map_all_routes(mut router: Router) {
-    router.app.at("/status").get(|_ : Request<RouterConfig>| async {
-        // info!("status will come from {:?}", router.role);
-        Ok("ok")
-    });
-
-    router.app.at("/connections/create-invitation").post(|_ : Request<RouterConfig>| async {
-        // todo get body
-        Ok("ok")
-    });
-
-}
-
-pub fn run_router(router: Router, host: &str) {
-    let mut rt = tokio::runtime::Runtime::new().unwrap();
-    rt.block_on(router.app.listen(host.to_string()));
-}
-
 impl Router {
     pub fn new(routing_role: &str) -> Router {
         let config: RouterConfig = RouterConfig {
