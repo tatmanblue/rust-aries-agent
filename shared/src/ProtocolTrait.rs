@@ -1,7 +1,9 @@
 use crate::ProtocolMessages:: {
+    BasicMessage,
+    CreateInvitationResponse,
     ErrorResponse,
     GenericResponse,
-    BasicMessage
+    StatusResponse
 };
 
 /*
@@ -11,7 +13,8 @@ use crate::ProtocolMessages:: {
 pub trait ProtocolTrait {
     // simply reports the status of the agent
     // TODO: reply???
-    fn status(&self);
+    fn status(&self) -> Result<StatusResponse, ErrorResponse>;
+    fn receive_create_message(&self) -> Result<CreateInvitationResponse, ErrorResponse>;
     // handle an inbound basic message
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse>;
 }

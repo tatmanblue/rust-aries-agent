@@ -1,9 +1,11 @@
 use AriesAgency::AgencyProtocol::AgencyProtocol;
 use AriesAgent::AgentProtocol::AgentProtocol;
 use AriesShared::ProtocolMessages::{
+    BasicMessage,
+    CreateInvitationResponse,
     ErrorResponse,
     GenericResponse,
-    BasicMessage
+    StatusResponse
 };
 use AriesShared::ProtocolTrait::ProtocolTrait;
 
@@ -31,7 +33,7 @@ pub enum HostedRoleTypes {
 /**
     Think of this ProtocolTrait implementation as something along the lines of an abstract class pointer
     or a v-table pointer in an OO language.
-    
+
     The factory returns one of the enums along  with the associated implementation type allocated within the enum itself.
     Since consumers have the enum, the ProtocolTrait implementation on the enum allows the consumer to work with the
     enum as a "class pointer" and not have to know about the actual implementation details; thereby making the
@@ -40,14 +42,24 @@ pub enum HostedRoleTypes {
     The concrete implementation are in their respective libraries.
 */
 impl ProtocolTrait for HostedRoleTypes {
-    fn status(&self) {
+    fn status(&self) -> Result<StatusResponse, ErrorResponse>  {
+        debug!("HostedRoleTypes.status");
         match *self {
             HostedRoleTypes::Agent(ref handler) => handler.status(),
             HostedRoleTypes::Agency(ref handler) => handler.status(),
         }
     }
 
+    fn receive_create_message(&self) -> Result<CreateInvitationResponse, ErrorResponse> {
+        debug!("HostedRoleTypes.receive_create_message");
+        match *self {
+            HostedRoleTypes::Agent(ref handler) => handler.receive_create_message(),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_create_message(),
+        }
+    }
+
     fn receive_basic_message(&self, message: BasicMessage)  -> Result<GenericResponse, ErrorResponse> {
+        debug!("HostedRoleTypes.receive_create_message");
         match *self {
             HostedRoleTypes::Agent(ref handler) => handler.receive_basic_message(message),
             HostedRoleTypes::Agency(ref handler) => handler.receive_basic_message(message),
