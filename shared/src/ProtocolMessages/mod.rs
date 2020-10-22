@@ -4,6 +4,8 @@ use chrono::Utc;
 use crate::Locale::Locales;
 
 mod BasicMessageImpl;
+mod CreateInvitationResponseImpl;
+mod InvitationImpl;
 
 // -----------------------------------------------------------------------------------------------
 // This file is likely to get long.  Keep all structures organized alphabetically.  It contains
@@ -28,6 +30,9 @@ pub struct BasicMessage {
     pub content: String,
 }
 
+// Expected output CreateInvitation from the inviter, RFC '0160: Connection Protocol'
+//
+//
 #[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CreateInvitationResponse {
@@ -37,12 +42,10 @@ pub struct CreateInvitationResponse {
     pub invitation_url: String,
     pub invitation: Invitation,
 }
-impl CreateInvitationResponse {
-    pub fn to_json(&self) -> String {
-        serde_json::to_string(&self).unwrap()
-    }
-}
 
+// Invitation which can be exchanged between inviter and invitee, RFC '0160: Connection Protocol'
+//
+//
 #[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Invitation {
@@ -57,12 +60,6 @@ pub struct Invitation {
     pub did: String,
     pub label: String,
 }
-impl Invitation {
-    pub fn to_json(&self) -> String {
-        serde_json::to_string(&self).unwrap()
-    }
-}
-
 
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]

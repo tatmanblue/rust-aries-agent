@@ -7,10 +7,9 @@ None
 
 ## In Progress
 blocked [BasicMessage](https://github.com/hyperledger/aries-rfcs/tree/master/features/0095-basic-message)
+in progress [Connection](https://github.com/hyperledger/aries-rfcs/blob/master/features/0160-connection-protocol/README.md)
 
-
-## Next Steps
-[Connection](https://github.com/hyperledger/aries-rfcs/blob/master/features/0160-connection-protocol/README.md)  
+## Next Steps  
 and/or [DidComm](https://github.com/hyperledger/aries-rfcs/blob/master/features/0023-did-exchange/README.md)
 
 ## References
