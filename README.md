@@ -3,7 +3,7 @@
 
 # Rust Aries Agent
 
-The primary goal of this project is to create an aries agent compliant with the [RFCS](https://github.com/hyperledger/aries-rfcs)
+The primary goal of this project is to create an [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10) with the [RFCS](https://github.com/hyperledger/aries-rfcs)
 and is compatible with other existing agents such as [ACAPY](https://github.com/hyperledger/aries-cloudagent-python).
 
 The secondary goal of this project will be to create an agency for using the aries agent created in 
@@ -20,7 +20,7 @@ the projects.
 
 [![tatmanblue](https://circleci.com/gh/tatmanblue/rust-aries-agent.svg?style=shield)](https://app.circleci.com/pipelines/github/tatmanblue/rust-aries-agent)
 
-
+Generally speaking, this the high level components of Rust Aries Agent:
 
 | Project | Description |
 |---------|-------------|
@@ -30,7 +30,16 @@ the projects.
 |[Shared](shared/README.md)|Library for code used by all of the projects.  Mostly likely, most of the project code will reside here.|
 
 ## Design and Work Plan
-Please see [Order of Work](docs/ORDER_OF_WORK.md) to understand what current development priorities are.
+Version 1 of Rust Aries Agent goal is complete compatibility with ACAPY, with the following ARIES functionality:
+* [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
+* Credentials
+* Proofs
+* Basic message and problem report
+
+Please see [Order of Work](docs/ORDER_OF_WORK.md) to understand what current development priorities are as this document
+is the master list of work to accomplish to achieve version 1 release.
+
+Future releases will be defined later to get to the ultimate goal of [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10)
 
 ## References
 [Aries RFCS](https://github.com/hyperledger/aries-rfcs)

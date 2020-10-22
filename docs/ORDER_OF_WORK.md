@@ -6,14 +6,15 @@ Generally speaking, the goal is to get agent [Aries Interop 1.0 compliant](https
 edited: 2020.10.18
 
 ## Work to be done
-1. default wallet handler independent of indy. Handler in place, specifics will be finished as neded
-3. (needs testing) webhook 
-4. (in progress) [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
+1. default wallet handler independent of indy. Handler in place, specifics will be finished as needed
+2. (testing) webhook 
+3. (in progress) [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
+4. List connections
 5. run aries agent in docker
 6. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
 7. auto response to connection protocols, configurable
-8. [did exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange)   
-9. add option to initialize/use indy wallet
+8. add option to initialize/use indy wallet
+9. Issue credential
 
 ## Decisions to be done
 1. Will the host handle different transport layers or should different hosts be used to provide
