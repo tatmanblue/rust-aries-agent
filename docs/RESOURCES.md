@@ -21,4 +21,5 @@
 [Uuid](https://docs.rs/uuid/0.8.1/uuid/struct.Uuid.html)  
 
 ## Additional Code considerations
-[rust host](https://dev.to/gruberb/web-development-with-rust-03-x-create-a-rest-api-3i82)
+[rust cheat sheet](https://cheats.rs/)  
+[rust host](https://dev.to/gruberb/web-development-with-rust-03-x-create-a-rest-api-3i82)  
