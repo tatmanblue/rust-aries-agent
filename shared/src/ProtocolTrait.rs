@@ -1,4 +1,4 @@
-use crate::ProtocolMessages:: {
+use crate::Messaging:: {
     Parameters::{
         CreateInvitationParameters
     },

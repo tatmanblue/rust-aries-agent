@@ -1,4 +1,4 @@
-use AriesShared::ProtocolMessages::{
+use AriesShared::Messaging::{
     Parameters::{
         CreateInvitationParameters
     },

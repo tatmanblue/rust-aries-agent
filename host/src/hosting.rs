@@ -1,6 +1,6 @@
 use AriesAgency::AgencyProtocol::AgencyProtocol;
 use AriesAgent::AgentProtocol::AgentProtocol;
-use AriesShared::ProtocolMessages::{
+use AriesShared::Messaging::{
     Parameters::{
         CreateInvitationParameters
     },

@@ -5,7 +5,7 @@
 use http::Error;
 use tide::{Request, Response, Result, Server};
 
-use AriesShared::ProtocolMessages:: {
+use AriesShared::Messaging:: {
     Parameters::{
         CreateInvitationParameters
     }
