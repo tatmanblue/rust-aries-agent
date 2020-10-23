@@ -1,7 +1,8 @@
 # Rust Aries Host
 
-The host is responsible for assembling the application that makes [agents](../agent/README.md) and 
-[agencies](../agency/README.md) communicating with other agents.
+The host is an executable application that makes [agents](../agent/README.md) and 
+[agencies](../agency/README.md) communicate with other agents.  It provides the
+communication layer between agents.  For version 1 (see below), that is RESTFul APIs.
 
 ## Running the Host
 Setup and command line reference is maintainted [here](../docs/USING.md).
@@ -9,18 +10,14 @@ Setup and command line reference is maintainted [here](../docs/USING.md).
 There are also some [scripts](../tools) made to help as well.
 
 ## Version 1
-This particular host will support agents through RESTFul apis.  
-Protocols to be completed to be version 1 complete are:
-* [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
-* Credentials
-* Proofs
-* Basic message and problem report
+This particular host will support agents through RESTFul apis.
 
-For more details see [ORDER_OF_WORK](../docs/ORDER_OF_WORK.md)
+For more details see [ORDER OF WORK](../docs/ORDER_OF_WORK.md)
 
 ## Version X
 * The transport layer should configurable.....eg: it could use gRPC instead, etc...
 * Host will be configurable to either host a single agent or an agency
+* additional protocols implemented
 
 ## Architecture
 

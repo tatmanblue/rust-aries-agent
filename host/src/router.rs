@@ -5,6 +5,11 @@
 use http::Error;
 use tide::{Request, Response, Result, Server};
 
+use AriesShared::ProtocolMessages:: {
+    Parameters::{
+        CreateInvitationParameters
+    }
+};
 use AriesShared::ProtocolTrait::ProtocolTrait;
 use super::hosting::{HostedRoleTypes, get_agent_or_agency};
 
@@ -65,8 +70,9 @@ impl Router {
 
     async fn create_invitation(request : Request<RouterConfig>) -> Result<Response> {
         let config: &RouterConfig = request.state();
+        let params: CreateInvitationParameters = request.query()?;
         let mut response = Response::builder(400);
-        match config.mediator.receive_create_message() {
+        match config.mediator.receive_create_message(params) {
             Ok(invite) => {
                 response = Response::builder(200).content_type("application/json").body(invite.to_json());
             },

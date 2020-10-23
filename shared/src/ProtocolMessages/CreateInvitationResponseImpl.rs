@@ -4,7 +4,8 @@ use uuid::Uuid;
 use super::{CreateInvitationResponse, Invitation};
 
 impl CreateInvitationResponse {
-    pub fn new(id: &str) -> CreateInvitationResponse {
+    // creates a blank CreateInvitationResponse, details to be updated by consumer
+    pub fn new() -> CreateInvitationResponse {
         CreateInvitationResponse {
             connection_id :  Uuid::new_v4().to_string(),
             invitation_url: "".to_string(),

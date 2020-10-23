@@ -6,6 +6,7 @@ use crate::Locale::Locales;
 mod BasicMessageImpl;
 mod CreateInvitationResponseImpl;
 mod InvitationImpl;
+pub mod Parameters;
 
 // -----------------------------------------------------------------------------------------------
 // This file is likely to get long.  Keep all structures organized alphabetically.  It contains

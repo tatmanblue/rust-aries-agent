@@ -1,13 +1,15 @@
 use std::io::Error;
+use uuid::Uuid;
 
 use super::{Invitation};
 
 impl Invitation {
+    // creates a blank invitation, details to be updated by consumer
     pub fn new() -> Invitation {
         Invitation {
-            id: "".to_string(),
+            id:  Uuid::new_v4().to_string(),
             recipient_keys: vec![],
-            type_field: "".to_string(),
+            type_field: "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/my-family/1.0/my-message-type".to_string(),
             service_endpoint: "".to_string(),
             image_url: "".to_string(),
             routing_keys: vec![],

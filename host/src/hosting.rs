@@ -1,6 +1,9 @@
 use AriesAgency::AgencyProtocol::AgencyProtocol;
 use AriesAgent::AgentProtocol::AgentProtocol;
 use AriesShared::ProtocolMessages::{
+    Parameters::{
+        CreateInvitationParameters
+    },
     BasicMessage,
     CreateInvitationResponse,
     ErrorResponse,
@@ -50,11 +53,11 @@ impl ProtocolTrait for HostedRoleTypes {
         }
     }
 
-    fn receive_create_message(&self) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn receive_create_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_create_message");
         match *self {
-            HostedRoleTypes::Agent(ref handler) => handler.receive_create_message(),
-            HostedRoleTypes::Agency(ref handler) => handler.receive_create_message(),
+            HostedRoleTypes::Agent(ref handler) => handler.receive_create_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_create_message(params),
         }
     }
 
