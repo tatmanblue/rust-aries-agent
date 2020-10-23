@@ -30,12 +30,12 @@ impl ProtocolTrait for AgentProtocol {
         // TODO: update invitation.invitation_url
         // TODO: update invitation.invitation.recipient_keys
         // TODO: update invitation.invitation.service_endpoint
-        // TODO: update invitation.invitation.image_url
-        // TODO: update invitation.invitation.routing_keys
         // TODO: update invitation.invitation.routing_keys
         // TODO: update invitation.invitation.did
-        // TODO: update invitation.invitation.label
         invitation.invitation.label = params.alias.to_string();
+
+        // toThink(): future versions
+        // update invitation.invitation.image_url
 
         Ok(invitation)
     }
