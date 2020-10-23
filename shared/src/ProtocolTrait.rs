@@ -12,12 +12,21 @@ use crate::ProtocolMessages:: {
 /*
     Agents must implement this trait.
     each method is to handle an aries protocol message and provide appropriate reply.
+
+    TODO:
+    toThink() what if we broke this trait out into multiple traits based on RFC or some other
+    logical separation.
+    1. This would allow for smaller implementations and less "not implemented"
+       empty methods.
+    2. It would allow for agents to more selectively pick and chose which protocols they handle
+       (when using the default agent built in this project isn't sufficient)
+    3. It would allow for easier code separation but may add complexity with sharing common functionality
  */
 pub trait ProtocolTrait {
-    // simply reports the status of the agent
-    // TODO: reply???
+    // Status is our messaging. Allow for agents to query state
     fn status(&self) -> Result<StatusResponse, ErrorResponse>;
+    // RFC '0160: Connection Protocol'
     fn receive_create_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse>;
-    // handle an inbound basic message
+    // RFC '0095-basic-message'
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse>;
 }
