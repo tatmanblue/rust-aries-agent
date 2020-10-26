@@ -1,12 +1,18 @@
+// Protocol messages are data structures shared between agents as defined in the aries RFCs.
+
 #![allow(non_snake_case)]
 use chrono::DateTime;
 use chrono::Utc;
 use crate::Locale::Locales;
 
+// public mods.  These are visible to consumers
+pub mod Enums;
+pub mod Parameters;
+
+// private mods, nothing exported out of Shared library in these mods
 mod BasicMessageImpl;
 mod CreateInvitationResponseImpl;
 mod InvitationImpl;
-pub mod Parameters;
 
 // -----------------------------------------------------------------------------------------------
 // This file is likely to get long.  Keep all structures organized alphabetically.  It contains

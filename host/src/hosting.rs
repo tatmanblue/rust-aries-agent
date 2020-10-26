@@ -1,16 +1,20 @@
 use AriesAgency::AgencyProtocol::AgencyProtocol;
 use AriesAgent::AgentProtocol::AgentProtocol;
-use AriesShared::ProtocolMessages::{
-    Parameters::{
-        CreateInvitationParameters
+use AriesShared::{
+    Messaging::{
+        Parameters::{
+            CreateInvitationParameters
+        },
+        BasicMessage,
+        CreateInvitationResponse,
+        ErrorResponse,
+        GenericResponse,
+        StatusResponse
     },
-    BasicMessage,
-    CreateInvitationResponse,
-    ErrorResponse,
-    GenericResponse,
-    StatusResponse
+    ProtocolTrait::ProtocolTrait,
+    Wallets::WalletTypes
 };
-use AriesShared::ProtocolTrait::ProtocolTrait;
+
 
 
 /**
@@ -23,8 +27,7 @@ use AriesShared::ProtocolTrait::ProtocolTrait;
     It solves for the O in solid:  open for extension.  add a new enum and you add a new behavior into the system
     without breaking existing implementations
 
-    // ToThink(): the enum and structure may need to be in a different library
-    // and will reorganize as pattern emerges
+    // ToThink(): is a better implementation using generics https://doc.rust-lang.org/book/ch10-00-generics.html
 
 */
 #[derive(Debug, Clone)]
@@ -53,11 +56,19 @@ impl ProtocolTrait for HostedRoleTypes {
         }
     }
 
-    fn receive_create_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_create_message");
         match *self {
-            HostedRoleTypes::Agent(ref handler) => handler.receive_create_message(params),
-            HostedRoleTypes::Agency(ref handler) => handler.receive_create_message(params),
+            HostedRoleTypes::Agent(ref handler) => handler.receive_create_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_create_invitation_message(params),
+        }
+    }
+
+    fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {
+        debug!("HostedRoleTypes.list_all_connections");
+        match *self {
+            HostedRoleTypes::Agent(ref handler) => handler.list_all_connections(),
+            HostedRoleTypes::Agency(ref handler) => handler.list_all_connections(),
         }
     }
 
@@ -73,10 +84,10 @@ impl ProtocolTrait for HostedRoleTypes {
 /*
     This factory finalized our version of DI by returning the correctly initialized "type"
  */
-pub fn get_agent_or_agency(role_type: &str) -> HostedRoleTypes {
+pub fn get_agent_or_agency(role_type: &str, wallet: WalletTypes) -> HostedRoleTypes {
     // TODO: initialization of agent or agency
     match role_type.to_lowercase().as_str() {
         "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
-        _ => HostedRoleTypes::Agent(AgentProtocol {})
+        _ => HostedRoleTypes::Agent(AgentProtocol { wallet })
     }
 }

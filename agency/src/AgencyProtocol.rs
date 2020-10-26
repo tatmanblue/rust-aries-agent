@@ -1,4 +1,4 @@
-use AriesShared::ProtocolMessages::{
+use AriesShared::Messaging::{
     Parameters::{
         CreateInvitationParameters
     },
@@ -22,7 +22,12 @@ impl ProtocolTrait for AgencyProtocol {
     fn receive_basic_message(&self, _: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
         todo!()
     }
-    fn receive_create_message(&self, _: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+
+    fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {
+        todo!()
+    }
+
+    fn receive_create_invitation_message(&self, _: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         todo!()
     }
 }
