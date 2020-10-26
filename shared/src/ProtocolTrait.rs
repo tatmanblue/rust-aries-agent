@@ -25,8 +25,11 @@ use crate::Messaging:: {
 pub trait ProtocolTrait {
     // Status is our messaging. Allow for agents to query state
     fn status(&self) -> Result<StatusResponse, ErrorResponse>;
+
     // RFC '0160: Connection Protocol'
-    fn receive_create_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse>;
+    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse>;
+    fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse>;
+
     // RFC '0095-basic-message'
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse>;
 }

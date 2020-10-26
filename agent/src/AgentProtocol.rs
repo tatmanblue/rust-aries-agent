@@ -1,18 +1,21 @@
-use AriesShared::Messaging::{
-    Parameters::{
-        CreateInvitationParameters
+use AriesShared::{
+    Messaging::{
+        Parameters::{
+            CreateInvitationParameters
+        },
+        BasicMessage,
+        CreateInvitationResponse,
+        ErrorResponse,
+        GenericResponse,
+        StatusResponse
     },
-    BasicMessage,
-    CreateInvitationResponse,
-    ErrorResponse,
-    GenericResponse,
-    StatusResponse
+    ProtocolTrait::ProtocolTrait,
+    Wallets::WalletTypes
 };
-use AriesShared::ProtocolTrait::ProtocolTrait;
 
 #[derive(Debug, Clone)]
 pub struct AgentProtocol {
-
+    pub wallet: WalletTypes
 }
 
 impl ProtocolTrait for AgentProtocol {
@@ -21,7 +24,7 @@ impl ProtocolTrait for AgentProtocol {
             message : "Agent reporting status (TODO)".to_string()
         })
     }
-    fn receive_create_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         let mut invitation: CreateInvitationResponse = CreateInvitationResponse::new();
         // TODO: need some kind of resource that provides URL formatting.  cannot assume
         // it is http since down the road that could be message queue etc...
@@ -39,6 +42,11 @@ impl ProtocolTrait for AgentProtocol {
 
         Ok(invitation)
     }
+
+    fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {
+        todo!()
+    }
+
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
         println!("Agent received basic message '{}'", message.content);
         let response: GenericResponse = GenericResponse { id: 1 }; 

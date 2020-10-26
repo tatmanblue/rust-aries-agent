@@ -5,13 +5,18 @@
 use http::Error;
 use tide::{Request, Response, Result, Server};
 
-use AriesShared::Messaging:: {
-    Parameters::{
-        CreateInvitationParameters
-    }
+use AriesShared::{
+    Messaging::{
+        Parameters::{
+            CreateInvitationParameters
+        },
+    },
+    ProtocolTrait::ProtocolTrait
 };
-use AriesShared::ProtocolTrait::ProtocolTrait;
-use super::hosting::{HostedRoleTypes, get_agent_or_agency};
+use super::{
+    Config,
+    hosting::{HostedRoleTypes, get_agent_or_agency}
+};
 
 pub struct Router {
     app: Server<RouterConfig>
@@ -24,10 +29,9 @@ pub struct RouterConfig {
 }
 
 impl Router {
-    pub fn new(routing_role: &str) -> Router {
-        let mediator: HostedRoleTypes = get_agent_or_agency(routing_role);
+    pub fn new(role: &str, mediator: HostedRoleTypes) -> Router {
         let config: RouterConfig = RouterConfig {
-            role:  routing_role.to_string(),
+            role:  role.to_string(),
             mediator
         };
         let app: Server<RouterConfig> = Server::with_state(config);
@@ -48,6 +52,7 @@ impl Router {
 
     pub fn map_all_routes(&mut self) {
         self.app.at("/status").get(Router::get_status);
+        self.app.at("/connections/").get(Router::list_all_connections);
         self.app.at("/connections/create-invitation").post(Router::create_invitation);
     }
 
@@ -68,11 +73,16 @@ impl Router {
         Ok(response.build())
     }
 
+    async fn list_all_connections(request : Request<RouterConfig>) -> Result<Response> {
+        let mut response = Response::builder(400);
+        Ok(response.build())
+    }
+
     async fn create_invitation(request : Request<RouterConfig>) -> Result<Response> {
         let config: &RouterConfig = request.state();
         let params: CreateInvitationParameters = request.query()?;
         let mut response = Response::builder(400);
-        match config.mediator.receive_create_message(params) {
+        match config.mediator.receive_create_invitation_message(params) {
             Ok(invite) => {
                 response = Response::builder(200).content_type("application/json").body(invite.to_json());
             },
