@@ -1,0 +1,26 @@
+version: '3'
+
+networks:
+  aries-network:
+    name: aries-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 10.0.10.0/24
+
+services:
+  rust-aries-agent:
+    build:
+      context: .
+      dockerfile: docker/ubuntu.dockerfile
+    command: bash
+    image: rust-aries-agent
+    container_name: rust-aries-agent
+    working_dir: /home/aries-agent/
+    volumes:
+      - ./:/home/aries-agent/
+    networks:
+      - aries-network
+    tty: true
