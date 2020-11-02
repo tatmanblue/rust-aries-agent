@@ -39,32 +39,6 @@ impl BasicWalletConfig {
         let config: BasicWalletConfig = serde_json::from_str(json)?;
         Ok(config)
     }
-
-    pub fn loadBasicWallet(&self) -> BasicWallet {
-        // will create a new BasicWallet on
-        // 1 - reset = true
-        // 2 - file does not exist
-        // 3 - file fails to serialize
-
-        let wallet_json: String = match fs::read_to_string(&self.file_name) {
-            Ok(success) => success,
-            Err(e) => {
-                debug!("error reading file for basic wallet: {:?}", e);
-                "{}".to_string()
-            }
-        };
-        let wallet: BasicWallet = match BasicWallet::from_json(&wallet_json) {
-            Ok(success) => success,
-            Err(e) => {
-                debug!("error deserializing basic wallet: {:?}", e);
-                warn!("defaulting to new basic wallet.");
-                BasicWallet {
-                }
-            }
-        };
-
-        wallet
-    }
 }
 
 // ----------------------------------------------------------------------------------
@@ -86,7 +60,30 @@ impl BasicWallet {
             }
         };
 
-        config.loadBasicWallet()
+        // will create a new BasicWallet on
+        // 1 - reset = true
+        // 2 - file does not exist
+        // 3 - file fails to serialize
+
+        let wallet_json: String = match fs::read_to_string(&config.file_name) {
+            Ok(success) => success,
+            Err(e) => {
+                debug!("error reading file for basic wallet: {:?}", e);
+                "{}".to_string()
+            }
+        };
+
+        let wallet: BasicWallet = match BasicWallet::from_json(&wallet_json) {
+            Ok(success) => success,
+            Err(e) => {
+                debug!("error deserializing basic wallet: {:?}", e);
+                warn!("defaulting to new basic wallet.");
+                BasicWallet {
+                }
+            }
+        };
+
+        wallet
     }
 }
 
