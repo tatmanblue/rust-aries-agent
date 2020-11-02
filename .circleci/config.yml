@@ -14,3 +14,8 @@ jobs:
             command: |
                 cd host
                 cargo build
+        - run:
+            name: running shared tests
+            command: |
+              cd ../shared
+              cargo test
