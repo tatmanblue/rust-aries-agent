@@ -3,17 +3,17 @@
 This document describes work that needs to be done, and should be considered list by priority with highest priority first.
 Generally speaking, the goal is to get agent [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10)
 
-edited: 2020.10.18
+edited: 2020.10.27
 
 ## Work to be done
 1. default wallet handler independent of indy. Handler in place, specifics will be finished as needed
 2. (testing) webhook 
 3. (in progress) [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
 4. List connections
-5. run aries agent in docker
-6. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
-7. auto response to connection protocols, configurable
-8. add option to initialize/use indy wallet
+5. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
+6. auto response to connection protocols, configurable
+7. add option to initialize/use indy wallet
+8. add indy-node to docker
 9. Issue credential
 
 ## Decisions to be done
