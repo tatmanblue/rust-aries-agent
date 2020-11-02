@@ -17,5 +17,5 @@ jobs:
         - run:
             name: running shared tests
             command: |
-              cd ../shared
+              cd shared
               cargo test
