@@ -1,4 +1,5 @@
 mod BasicWalletImpl;
+mod Records;
 
 use BasicWalletImpl::BasicWallet;
 
@@ -12,6 +13,7 @@ pub enum WalletTypes {
 
 /*
     Wallet is used to store records for an agent.
+    TBD: this interface is being defined as the use cases arise
 */
 pub trait WalletTrait {
     fn create(&self);

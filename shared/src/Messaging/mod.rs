@@ -18,6 +18,9 @@ mod InvitationImpl;
 // This file is likely to get long.  Keep all structures organized alphabetically.  It contains
 // of the message structures for all aries protocols implemented
 // see bottom section for small exception
+//
+// note about field ordering:
+// with the exception of 'id' and 'type' fields, all fields should be arranged alphabetically
 // -----------------------------------------------------------------------------------------------
 
 // Expected input for BasicMessage input, RFC '0095-basic-message'
@@ -30,11 +33,11 @@ pub struct BasicMessage {
     pub id: String,
     #[serde(rename = "@type")]
     pub type_field: String,
+    pub content: String,
     #[serde(rename = "~l10n")]
     pub l10n: L10N,
     #[serde(rename = "sent_time")]
     pub sent_time: DateTime<Utc>,
-    pub content: String,
 }
 
 // Expected output CreateInvitation from the inviter, RFC '0160: Connection Protocol'
@@ -58,20 +61,42 @@ pub struct CreateInvitationResponse {
 pub struct Invitation {
     #[serde(rename = "@id")]
     pub id: String,
-    pub recipient_keys: Vec<String>,
     #[serde(rename = "@type")]
     pub type_field: String,
-    pub service_endpoint: String,
-    pub image_url: String,
-    pub routing_keys: Vec<String>,
     pub did: String,
+    pub image_url: String,
     pub label: String,
+    pub recipient_keys: Vec<String>,
+    pub routing_keys: Vec<String>,
+    pub service_endpoint: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
+#[derive(Debug, Default, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct L10N {
     pub locale: Locales,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ProblemReport {
+    #[serde(rename = "@id")]
+    pub id: String,
+    #[serde(rename = "@type")]
+    pub type_field: String,
+    pub explain: String,
+    #[serde(rename = "~i10n")]
+    pub i10_n: L10N,                                // NOTE: this is different from RFC 0160 which calls it I10N
+    #[serde(rename = "problem-code")]
+    pub problem_code: String,
+    #[serde(rename = "~thread")]
+    pub thread: Thread,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Thread {
+    pub thid: String,
 }
 
 // -----------------------------------------------------------------------------------------------

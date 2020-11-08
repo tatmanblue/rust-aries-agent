@@ -12,7 +12,7 @@ lazy_static! {
 //
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct BasicWalletConfig {
+pub struct BasicWalletConfig {
     #[serde(rename = "fileName")]
     pub file_name: String,
     pub reset: Option<bool>
@@ -28,7 +28,7 @@ struct BasicWalletConfig {
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BasicWallet {
-
+    pub configuration: BasicWalletConfig
 }
 
 // ----------------------------------------------------------------------------------
@@ -79,6 +79,7 @@ impl BasicWallet {
                 debug!("error deserializing basic wallet: {:?}", e);
                 warn!("defaulting to new basic wallet.");
                 BasicWallet {
+                    configuration: config
                 }
             }
         };
