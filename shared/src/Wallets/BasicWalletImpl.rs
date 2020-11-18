@@ -2,6 +2,7 @@ use std::fs;
 use std::io::Error;
 
 use super::WalletTrait;
+use super::Records::*;
 
 lazy_static! {
 	static ref WALLET_CONFIG: BasicWalletConfig = BasicWalletConfig{ file_name: "test.json".to_string(), reset: Some(true)};
@@ -105,6 +106,10 @@ impl WalletTrait for BasicWallet {
     }
 
     fn delete(&self) {
+        unimplemented!()
+    }
+
+    fn save_invitation(&self, record: &ConnectionRecord) {
         unimplemented!()
     }
 }
