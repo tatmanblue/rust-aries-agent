@@ -4,7 +4,7 @@ This directory contains scripts and applications that help with using, running, 
 rust-aries-agent but are not actually part of the rust-aries-agent product.
 
 ## Webhook Listener
-A tool for listening to rust-aries-agent with restful API.  [See](webhook/README.md)  
+A tool for listening to rust-aries-agent with restful API.  See the webhook listener [documentation](webhook/README.md).  
 
 ## Scripts
 Shell files meant to make life a little easier. 

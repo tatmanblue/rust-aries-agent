@@ -35,7 +35,7 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 ### Optional Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
-| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to automatically handle messages. like acapy webhook, for now only valid values are none, http | http |
+| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to manually handle messages. like acapy webhook, for now only valid values are none, http | http |
 | talk-back-config | b | configuration for the talkback channel.  json. format depends on --talk-back value | |
 
 #### --wallet-type basic --wallet-config
