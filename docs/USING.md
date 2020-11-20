@@ -14,6 +14,7 @@ Currently, the only way to run aries-rust-agent is to run it from source code on
     cd host
     cargo run -- --host 127.0.0.1:8000 --role agent --wallet-type basic
     ```
+5. Alternative to #4 above, you can use the scripts to run the application. See the tools [README](../tools/README.md).
 
 You will not see a lot of output and it may appear like its not functioning.  To see the app output,
 you need to set `RUST_LOG` environment variable.  The simplest is to set it to `debug`.  You are free
