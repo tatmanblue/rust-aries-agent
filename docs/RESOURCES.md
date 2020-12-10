@@ -6,6 +6,7 @@
 ## Agents
 [ACAPY](https://github.com/hyperledger/aries-cloudagent-python)  
 [ACAPY API](https://github.com/hyperledger/aries-cloudagent-python/blob/master/demo/AriesOpenAPIDemo.md)  
+[Test Agent](https://github.com/hyperledger/aries-agent-test-harness)  
 
 ## Indy Code
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
