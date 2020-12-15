@@ -11,6 +11,9 @@
 ## Indy Code
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
 [Indy Node](https://github.com/hyperledger/indy-node)  
+
+## Tools
+[DidGen](https://github.com/matt-raffel-kiva/didgen)  
  
 ## Documentation
 [Locale](https://en.wikipedia.org/wiki/Language_localisation)  
