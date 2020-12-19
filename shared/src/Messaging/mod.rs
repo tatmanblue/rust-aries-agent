@@ -1,4 +1,5 @@
 // Protocol messages are data structures shared between agents as defined in the aries RFCs.
+// all types in these structs need to compatible across the wire
 
 #![allow(non_snake_case)]
 use chrono::DateTime;
