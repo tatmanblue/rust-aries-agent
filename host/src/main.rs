@@ -83,7 +83,7 @@ lazy_static! {
 // (if we decide one host handles multiple input types)
 fn run_host() {
 	let wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &CONFIG.wallet_config);
-	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, wallet);
+	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host.to_string(), wallet);
 	let mut router: Router = Router::new(&CONFIG.role, mediator);
 	router.map_all_routes();
 	router.run(&CONFIG.host);

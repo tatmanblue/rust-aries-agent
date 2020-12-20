@@ -10,6 +10,6 @@ edition = "2018"
 [dependencies]
 # our share project
 aries-shared = { path = "../shared" }
-
+base64-url = "1.4.8"
 log = "0.4.0"
 
