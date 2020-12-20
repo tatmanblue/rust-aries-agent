@@ -14,6 +14,7 @@ Currently, the only way to run aries-rust-agent is to run it from source code on
     cd host
     cargo run -- --host 127.0.0.1:8000 --role agent --wallet-type basic
     ```
+5. Alternative to #4 above, you can use the scripts to run the application. See the tools [README](../tools/README.md).
 
 You will not see a lot of output and it may appear like its not functioning.  To see the app output,
 you need to set `RUST_LOG` environment variable.  The simplest is to set it to `debug`.  You are free
@@ -34,7 +35,7 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 ### Optional Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
-| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to automatically handle messages. like acapy webhook, for now only valid values are none, http | http |
+| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to manually handle messages. like acapy webhook, for now only valid values are none, http | http |
 | talk-back-config | b | configuration for the talkback channel.  json. format depends on --talk-back value | |
 
 #### --wallet-type basic --wallet-config

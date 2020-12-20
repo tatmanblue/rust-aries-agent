@@ -2,7 +2,6 @@
 //
 // responsible for setting up url route to hosting mapping
 //
-use http::Error;
 use tide::{Request, Response, Result, Server};
 
 use AriesShared::{
@@ -14,8 +13,7 @@ use AriesShared::{
     ProtocolTrait::ProtocolTrait
 };
 use super::{
-    Config,
-    hosting::{HostedRoleTypes, get_agent_or_agency}
+    hosting::{HostedRoleTypes}
 };
 
 pub struct Router {
@@ -73,8 +71,8 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn list_all_connections(request : Request<RouterConfig>) -> Result<Response> {
-        let mut response = Response::builder(400);
+    async fn list_all_connections(_request : Request<RouterConfig>) -> Result<Response> {
+        let response = Response::builder(400);              // will change to mut once we implement body
         Ok(response.build())
     }
 

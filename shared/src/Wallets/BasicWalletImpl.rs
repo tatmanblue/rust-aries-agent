@@ -2,6 +2,7 @@ use std::fs;
 use std::io::Error;
 
 use super::WalletTrait;
+use super::Records::*;
 
 lazy_static! {
 	static ref WALLET_CONFIG: BasicWalletConfig = BasicWalletConfig{ file_name: "test.json".to_string(), reset: Some(true)};
@@ -12,7 +13,7 @@ lazy_static! {
 //
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct BasicWalletConfig {
+pub struct BasicWalletConfig {
     #[serde(rename = "fileName")]
     pub file_name: String,
     pub reset: Option<bool>
@@ -28,7 +29,7 @@ struct BasicWalletConfig {
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BasicWallet {
-
+    pub configuration: BasicWalletConfig
 }
 
 // ----------------------------------------------------------------------------------
@@ -79,6 +80,7 @@ impl BasicWallet {
                 debug!("error deserializing basic wallet: {:?}", e);
                 warn!("defaulting to new basic wallet.");
                 BasicWallet {
+                    configuration: config
                 }
             }
         };
@@ -104,6 +106,10 @@ impl WalletTrait for BasicWallet {
     }
 
     fn delete(&self) {
+        unimplemented!()
+    }
+
+    fn save_invitation(&self, record: &ConnectionRecord) {
         unimplemented!()
     }
 }

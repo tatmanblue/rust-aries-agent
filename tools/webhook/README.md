@@ -1,6 +1,6 @@
-# WebHook Listener
+# Talkback Listener
 
-To use webhook listener, run the host application in a separate shell window passing in the following talkBack configuration:
+To use webhook listener (also called `talkback`), run the host application in a separate shell window passing in the following talkBack configuration:
 
 ```
 cargo run -- --host 127.0.0.1:8000 
@@ -10,6 +10,8 @@ cargo run -- --host 127.0.0.1:8000
        --talk-back http 
        --talk-back-config http://localhost:5001
 ```
+Note: Alternative to running the command above, you can use the scripts to run the application. 
+See the tools [README](../README.md).
 
 Next, start the webhook listener in its own shell passing in the same value passed in the `--talk-back-config` argument, above.  In the webhook directory:
 ```

@@ -6,10 +6,14 @@
 ## Agents
 [ACAPY](https://github.com/hyperledger/aries-cloudagent-python)  
 [ACAPY API](https://github.com/hyperledger/aries-cloudagent-python/blob/master/demo/AriesOpenAPIDemo.md)  
+[Test Agent](https://github.com/hyperledger/aries-agent-test-harness)  
 
 ## Indy Code
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
 [Indy Node](https://github.com/hyperledger/indy-node)  
+
+## Tools
+[DidGen](https://github.com/matt-raffel-kiva/didgen)  
  
 ## Documentation
 [Locale](https://en.wikipedia.org/wiki/Language_localisation)  

@@ -1,6 +1,8 @@
 mod BasicWalletImpl;
+mod Records;
 
 use BasicWalletImpl::BasicWallet;
+use Records::*;
 
 #[derive(Debug, Clone)]
 pub enum WalletTypes {
@@ -12,12 +14,17 @@ pub enum WalletTypes {
 
 /*
     Wallet is used to store records for an agent.
+    TBD: this interface is being defined as the use cases arise
 */
 pub trait WalletTrait {
     fn create(&self);
     fn open(&self);
     fn close(&self);
     fn delete(&self);
+
+    // save a connection invitation record, for now expecting
+    // implementation to understand when its a new record or an update
+    fn save_invitation(&self, record: &ConnectionRecord);
 }
 
 pub fn get_wallet_handler(wallet_type: &str, wallet_config: &str) -> WalletTypes {
