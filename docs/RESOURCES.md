@@ -9,6 +9,7 @@
 [Test Agent](https://github.com/hyperledger/aries-agent-test-harness)  
 
 ## Indy Code
+Please note that indy sdk is no longer being maintained
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
 [Indy Node](https://github.com/hyperledger/indy-node)  
 
@@ -21,6 +22,7 @@
 ## Rust crate documentation
 [Clap](https://crates.io/crates/clap) for commandline processing  
 [Reqwest](https://crates.io/crates/reqwest) http client  
+[SodiumOxide](https://docs.rs/sodiumoxide/0.2.6/sodiumoxide/index.html) cryptography  
 [Tide](https://docs.rs/tide/0.14.0/tide/index.html)  for http hosting  
 [Uuid](https://docs.rs/uuid/0.8.1/uuid/struct.Uuid.html)  
 

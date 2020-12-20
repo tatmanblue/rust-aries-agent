@@ -7,12 +7,17 @@ use sodiumoxide::crypto::sign::ed25519::{
     SecretKey
 };
 
+/*
+    did and ver_key confirm the standards defined in indysdk.
+    and is modeled from
+    https://github.com/hyperledger/indy-sdk/blob/7f4fbb055478181761347a981544fb823d6f47ba/libindy/src/services/crypto/mod.rs#L53
+*/
 // toThink() should type go above this mod?
 pub struct Did
 {
     pub did: String,
-    pub verKey: String,            // toThink() Indy calls pub key ver_key.  but maybe we should call it publicKey
-    pub privateKey: String,
+    pub ver_key: String,            // toThink() Indy calls pub key ver_key.  but maybe we should call it publicKey
+    pub private_key: String,
 }
 
 impl Did
@@ -20,8 +25,8 @@ impl Did
     pub fn new(seed: Option<String>) -> Did
     {
         let did: String;
-        let verKey: String;
-        let privateKey: String;
+        let ver_key: String;
+        let private_key: String;
 
         let (v, s): (PublicKey, SecretKey) = match seed
         {
@@ -37,14 +42,14 @@ impl Did
         };
 
         did = v[0..16].to_vec().to_base58();
-        verKey = v[..].to_base58();
-        privateKey = s[..].to_base58();
+        ver_key = v[..].to_base58();
+        private_key = s[..].to_base58();
 
         return Did
         {
             did,
-            verKey,
-            privateKey,
+            ver_key,
+            private_key,
         };
     }
 }
