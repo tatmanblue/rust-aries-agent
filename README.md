@@ -9,7 +9,7 @@ and is compatible with other existing agents such as [ACAPY](https://github.com/
 The secondary goal of this project will be to create an agency for using the aries agent created in 
 the first goal stated above.
 
-![Info On Indy SDK](https://github.com/tatmanblue/rust-aries-agent/master/docs/info.jpg)
+![Info On Indy SDK](https://github.com/tatmanblue/rust-aries-agent/tree/master/docs/info.jpg)
 As of Dec 2020, Indy SDK is no longer being maintained.  This impacts Rust Aries Agent implementation.
 Once `Connection Invite` is complete, this project will move to using any available replacement libraries for
 `Indy Node` if and when they are available.  All indications are replacement libraries built by the [bc.gov](bc.gov)
