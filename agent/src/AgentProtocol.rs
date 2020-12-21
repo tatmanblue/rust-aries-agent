@@ -14,10 +14,6 @@ use AriesShared::{
     },
     ProtocolTrait::ProtocolTrait,
     Wallets::{
-        Records::{
-            ConnectionRecord,
-            ConnectionState
-        },
         WalletTypes
     }
 };
@@ -58,17 +54,7 @@ impl ProtocolTrait for AgentProtocol {
         response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
         // TODO: save invitation so that we can reference it when returned by interested party
-        let record: ConnectionRecord = {
-            id: "response.invitation.service_endpoint".to_string(),
-            did: "response.invitation.service_endpoint".to_string(),
-            image_url: "response.invitation.service_endpoint".to_string(),
-            label: "response.invitation.service_endpoint".to_string(),
-            recipient_keys: vec!(),
-            routing_keys: vec!(),
-            service_endpoint: "response.invitation.service_endpoint".to_string(),
-            state: ConnectionState.Invited
-        };
-        self.wallet.save_invitation(&record);
+        self.wallet.save_invitation(&response.as_connection_record());
 
         Ok(response)
     }

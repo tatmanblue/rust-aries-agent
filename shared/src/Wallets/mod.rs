@@ -1,5 +1,5 @@
 mod BasicWalletImpl;
-mod Records;
+pub mod Records;
 
 use BasicWalletImpl::BasicWallet;
 use Records::*;
