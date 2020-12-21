@@ -54,6 +54,6 @@ Future releases will be defined later to get to the ultimate goal of [Aries Inte
 Please see [LICENSE](./LICENSE).  
 
 ## Status
-Initial/Concept
+Paused--will resume once suitable replacement libraries for indy-sdk are available.
 
-edited: 2020.10.18
+edited: 2020.12.21
