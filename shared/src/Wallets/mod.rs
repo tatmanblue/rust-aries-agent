@@ -27,6 +27,33 @@ pub trait WalletTrait {
     fn save_invitation(&self, record: &ConnectionRecord);
 }
 
+impl WalletTrait for WalletTypes
+{
+    fn create(&self) {
+        unimplemented!()
+    }
+
+    fn open(&self) {
+        unimplemented!()
+    }
+
+    fn close(&self) {
+        unimplemented!()
+    }
+
+    fn delete(&self) {
+        unimplemented!()
+    }
+
+    fn save_invitation(&self, record: &ConnectionRecord) {
+        debug!("WalletTypes.save_invitation");
+        match *self {
+            WalletTypes::Basic(ref handler) => handler.save_invitation(record),
+            WalletTypes::Indy() => unimplemented!()
+        }
+    }
+}
+
 pub fn get_wallet_handler(wallet_type: &str, wallet_config: &str) -> WalletTypes {
     match wallet_type.to_lowercase().as_str() {
         "indy" => WalletTypes::Indy(),

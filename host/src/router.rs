@@ -51,7 +51,7 @@ impl Router {
     pub fn map_all_routes(&mut self) {
         self.app.at("/status").get(Router::get_status);
         self.app.at("/connections/").get(Router::list_all_connections);
-        self.app.at("/connections/url").get(Router::connection_url);
+        self.app.at("/connections/invitation/url").get(Router::connection_url);
         self.app.at("/connections/create-invitation").post(Router::create_invitation);
     }
 
