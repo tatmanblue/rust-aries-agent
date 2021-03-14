@@ -15,16 +15,15 @@ aries-agent = { path = "../agent" }
 # our share project
 aries-shared = { path = "../shared" }
 
-clap = {version = "2.33.1", features = ["yaml"]}
-env_logger = "0.7.1"
-http = "0.2.1"
+clap = {version = "2.33.3", features = ["yaml"]}
+env_logger = "0.8.3"
+futures-util = "0.3.13"
+http = "0.2.3"
 lazy_static = "1.4.0"
-log = "0.4.0"
-serde = "1.0.114"
-serde_derive = "1.0.114"
-tide = "0.14.0"
-tokio = "0.2.22"
-
-[log]
-# max level to log
-level = "debug"
+log = "0.4.14"
+once_cell = "1.7.2"
+serde = "1.0.124"
+serde_derive = "1.0.124"
+tide = "0.16.0"
+tokio = { version = "1", features = ["full"] }
+# tokio = "1.3.0"

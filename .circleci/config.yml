@@ -8,15 +8,20 @@ jobs:
   build:
     executor: rust/default   
     steps:
-        - checkout
-        - run:
-            name: building host
-            command: |
-                cd host
-                rustup --version
-                cargo build
-        - run:
-            name: running shared tests
-            command: |
-              cd shared
-              cargo test
+      - run:
+          name: version checks
+          command: |
+            rustup --version
+            cargo --version
+
+      - checkout
+      - run:
+          name: building host
+          command: |
+            cd host
+            cargo build
+      - run:
+          name: running shared tests
+          command: |
+            cd shared
+            cargo test
