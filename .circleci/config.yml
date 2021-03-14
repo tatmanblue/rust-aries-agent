@@ -1,21 +1,27 @@
 version: 2.1
 
 orbs:
-  rust: glotrade/rust@0.1.3
+  rust: streamroot/rust@0.1.3
   
   
 jobs:
   build:
     executor: rust/default   
     steps:
-        - checkout
-        - run:
-            name: building host
-            command: |
-                cd host
-                cargo build
-        - run:
-            name: running shared tests
-            command: |
-              cd shared
-              cargo test
+      - run:
+          name: version checks
+          command: |
+            rustup --version
+            cargo --version
+
+      - checkout
+      - run:
+          name: building host
+          command: |
+            cd host
+            cargo build
+      - run:
+          name: running shared tests
+          command: |
+            cd shared
+            cargo test
