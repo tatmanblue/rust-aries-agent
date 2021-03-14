@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  rust: circleci/rust@1.1.0
+  rust: streamroot/rust@0.1.3
   
   
 jobs:
