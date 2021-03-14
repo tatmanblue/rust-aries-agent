@@ -54,7 +54,7 @@ impl ProtocolTrait for AgentProtocol {
         response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
         // TODO: save invitation so that we can reference it when returned by interested party
-        self.wallet.save_invitation(&response.as_connection_record());
+        // self.wallet.save_invitation(&response.as_connection_record());
 
         Ok(response)
     }
