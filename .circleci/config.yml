@@ -13,6 +13,7 @@ jobs:
             name: building host
             command: |
                 cd host
+                rustup version
                 cargo build
         - run:
             name: running shared tests
