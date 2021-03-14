@@ -1,4 +1,7 @@
+use base64_url::{encode};
+
 use AriesShared::{
+    Crypto::{ Did },
     Messaging::{
         Parameters::{
             CreateInvitationParameters
@@ -10,37 +13,50 @@ use AriesShared::{
         StatusResponse
     },
     ProtocolTrait::ProtocolTrait,
-    Wallets::WalletTypes
+    Wallets::{
+        WalletTypes
+    }
 };
 
 #[derive(Debug, Clone)]
 pub struct AgentProtocol {
-    pub wallet: WalletTypes
+    pub wallet: WalletTypes,
+    pub service_end_point: String           // URL, message queue URI etc....
 }
 
+/*
+    toThink():
+    unfortunately this implementation uses http specific data types.  This needs to be better abstracted
+*/
 impl ProtocolTrait for AgentProtocol {
     fn status(&self) -> Result<StatusResponse, ErrorResponse> {
         Ok(StatusResponse {
             message : "Agent reporting status (TODO)".to_string()
         })
     }
+
     fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
-        let mut invitation: CreateInvitationResponse = CreateInvitationResponse::new();
+        let mut response: CreateInvitationResponse = CreateInvitationResponse::new();
+        let did : Did = Did::new(None);
+
         // TODO: need some kind of resource that provides URL formatting.  cannot assume
         // it is http since down the road that could be message queue etc...
 
-        // TODO: do we need to generate an alias if none is provided?
-        // TODO: update invitation.invitation_url
-        // TODO: update invitation.invitation.recipient_keys
-        // TODO: update invitation.invitation.service_endpoint
-        // TODO: update invitation.invitation.routing_keys
-        // TODO: update invitation.invitation.did
-        invitation.invitation.label = params.alias.to_string();
+        // TODO: not using at this time -> update response.invitation.routing_keys
+        // TODO: not using at this time -> update invitation.invitation.image_url
+        response.invitation.service_endpoint = format!("http://{}", self.service_end_point.to_string());
+        response.invitation.did = format!("did:sov:{}", did.did);
+        response.invitation.label = params.alias.to_string();
+        response.invitation.recipient_keys.push(did.did.to_string());
 
-        // toThink(): future versions
-        // update invitation.invitation.image_url
+        // TODO: get alias from params if they exist
+        let encoded_invitation = encode(&response.invitation.to_json());
+        response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
-        Ok(invitation)
+        // TODO: save invitation so that we can reference it when returned by interested party
+        // self.wallet.save_invitation(&response.as_connection_record());
+
+        Ok(response)
     }
 
     fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {

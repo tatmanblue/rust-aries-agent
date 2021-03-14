@@ -84,10 +84,12 @@ impl ProtocolTrait for HostedRoleTypes {
 /*
     This factory finalized our version of DI by returning the correctly initialized "type"
  */
-pub fn get_agent_or_agency(role_type: &str, wallet: WalletTypes) -> HostedRoleTypes {
+pub fn get_agent_or_agency(role_type: &str, service_end_point: &str, wallet: WalletTypes) -> HostedRoleTypes {
     // TODO: initialization of agent or agency
     match role_type.to_lowercase().as_str() {
         "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
-        _ => HostedRoleTypes::Agent(AgentProtocol { wallet })
+        _ => HostedRoleTypes::Agent(AgentProtocol {
+            wallet,
+            service_end_point: service_end_point.to_string() })
     }
 }

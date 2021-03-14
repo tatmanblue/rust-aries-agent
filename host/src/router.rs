@@ -51,6 +51,7 @@ impl Router {
     pub fn map_all_routes(&mut self) {
         self.app.at("/status").get(Router::get_status);
         self.app.at("/connections/").get(Router::list_all_connections);
+        self.app.at("/connections/invitation/url").get(Router::connection_url);
         self.app.at("/connections/create-invitation").post(Router::create_invitation);
     }
 
@@ -73,6 +74,15 @@ impl Router {
 
     async fn list_all_connections(_request : Request<RouterConfig>) -> Result<Response> {
         let response = Response::builder(400);              // will change to mut once we implement body
+        warn!("list_all_connections not implemented");
+        Ok(response.build())
+    }
+
+    async fn connection_url(request : Request<RouterConfig>) -> Result<Response>
+    {
+        let params: CreateInvitationParameters = request.query()?;
+        let response = Response::builder(400);              // will change to mut once we implement body
+        warn!("connection_url not implemented");
         Ok(response.build())
     }
 
