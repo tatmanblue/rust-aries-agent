@@ -17,5 +17,5 @@ pub mod Crypto;
 pub mod Locale;
 pub mod Messaging;
 pub mod ProtocolTrait;
-pub mod TalkBack;
+pub mod Automation;
 pub mod Wallets;

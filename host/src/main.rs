@@ -24,9 +24,15 @@ mod router;
 use clap::{App, ArgMatches};
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
-use AriesShared::Wallets::{
-	WalletTypes,
-	get_wallet_handler
+use AriesShared::{
+	Automation::{
+		AutomationTypes,
+		get_automation_handler
+	},
+	Wallets::{
+		WalletTypes,
+		get_wallet_handler
+	}
 };
 use hosting::{HostedRoleTypes, get_agent_or_agency};
 use router::{Router};
@@ -82,8 +88,9 @@ lazy_static! {
 // TODO: someday this method should be data drive to load a "router" based on configuration
 // (if we decide one host handles multiple input types)
 fn run_host() {
+	let automation: AutomationTypes = get_automation_handler(&CONFIG.automation_type, &CONFIG.automation_config);
 	let wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &CONFIG.wallet_config);
-	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host.to_string(), wallet);
+	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host.to_string(), wallet, automation);
 	let mut router: Router = Router::new(&CONFIG.role, mediator);
 	router.map_all_routes();
 	router.run(&CONFIG.host);

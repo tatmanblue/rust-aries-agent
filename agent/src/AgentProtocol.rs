@@ -1,6 +1,10 @@
 use base64_url::{encode};
 
 use AriesShared::{
+    Automation::{
+        AutomationTypes,
+        AutomationTrait
+    },
     Crypto::{ Did },
     Messaging::{
         Parameters::{
@@ -21,6 +25,7 @@ use AriesShared::{
 
 #[derive(Debug, Clone)]
 pub struct AgentProtocol {
+    pub automation: AutomationTypes,
     pub wallet: WalletTypes,
     pub service_end_point: String           // URL, message queue URI etc....
 }
