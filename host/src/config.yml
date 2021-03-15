@@ -40,18 +40,18 @@ args:
       short: c
       long: wallet-config
       takes_value: true
-  - talkBack:
+  - automation:
       help: (optional) host will send responses on this channel. useful for automating protocol actions between agents. like acapy webhook
-      short: t
-      long: talk-back
+      short: a
+      long: automation
       takes_value: true
       possible_values:
         - none
         - http
-  - talkBackConfig:
-      help: input for configuring talkback. see docs for details.  its likely to be json format specific for type
+  - automationConfig:
+      help: input for configuring automation. see docs for details.  its likely to be json format specific for type
       short: b
-      long: talk-back-config
+      long: automation-config
       takes_value: true
 
 

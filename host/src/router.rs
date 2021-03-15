@@ -39,7 +39,7 @@ impl Router {
     }
 
     pub fn run(self, host: &str) {
-        let mut rt = tokio::runtime::Runtime::new().unwrap();
+        let rt = tokio::runtime::Runtime::new().unwrap();
         match rt.block_on(self.app.listen(host.to_string())) {
             Ok(_) => { },
             Err(e) => {
@@ -78,9 +78,10 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn connection_url(request : Request<RouterConfig>) -> Result<Response>
+    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response>
     {
-        let params: CreateInvitationParameters = request.query()?;
+        // TODO we will use params when the function is implemented
+        // let params: CreateInvitationParameters = request.query()?;
         let response = Response::builder(400);              // will change to mut once we implement body
         warn!("connection_url not implemented");
         Ok(response.build())

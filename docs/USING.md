@@ -35,8 +35,8 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 ### Optional Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
-| talk-back | t | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to manually handle messages. like acapy webhook, for now only valid values are none, http | http |
-| talk-back-config | b | configuration for the talkback channel.  json. format depends on --talk-back value | |
+| automation | a | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to manually handle messages. like acapy webhook, for now only valid values are none, http | http |
+| automation-config | b | configuration for the automation channel.  json. format depends on --talk-back value | |
 
 #### --wallet-type basic --wallet-config
 When `--wallet-type` is  set to `basic` the argument `--wallet-config` will expect a json string for configuration.
@@ -48,12 +48,12 @@ If the value is not provided or has errors, the default will be used.
 #### --wallet-type indy --wallet-config
 Note: currently not implemented
 
-#### --talk-back http --talk-back-config
-When `--talk-back` is set to `http`, aries agents will send responses on that channel.  For http use,
-value passed to `--talk-back-config` is the URL aries agents will send their response.
+#### --automation http --automation-config
+When `--automation` is set to `http`, aries agents will send responses on that channel.  For http use,
+value passed to `--automation-config` is the URL aries agents will send their response.
 
 ```
-    --talk-back http --talk-back-config "http://localhost:5001"
+    --automation http --automation-config "http://localhost:5001"
 ```
 
 

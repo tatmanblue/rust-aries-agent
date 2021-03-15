@@ -14,7 +14,7 @@ extern crate aries_agent as AriesAgent;
 extern crate aries_shared as AriesShared;
 
 // our imported mods
-use env_logger::Env;
+use env_logger::{Builder};
 
 // our mods, and keep them alphabetical
 mod hosting;
@@ -36,8 +36,8 @@ pub struct Config {
 	role: String,			// host_type
 	wallet_type: String,
 	wallet_config: String,
-	talk_back_type: String,
-	talk_back_config: String
+	automation_type: String,
+	automation_config: String
 }
 
 impl Config {
@@ -47,18 +47,18 @@ impl Config {
 
 		let host: &str = options.value_of("host").unwrap_or("127.0.0.1:8000");
 		let wallet_config: &str = options.value_of("walletConfig").unwrap_or("");
-		let talk_back_config: &str = options.value_of("talkBackConfig").unwrap_or("");
+		let talk_back_config: &str = options.value_of("automationConfig").unwrap_or("");
 		let role: &str = options.value_of("role").unwrap_or("Agent");
 		let wallet_type: &str = options.value_of("walletType").unwrap_or("Basic");
-		let talk_back_type: &str = options.value_of("talkBack").unwrap_or("none");
+		let talk_back_type: &str = options.value_of("automation").unwrap_or("none");
 
 		Config {
 			host: host.to_string(),
 			role: role.to_string(),
 			wallet_type: wallet_type.to_string(),
 			wallet_config: wallet_config.to_string(),
-			talk_back_type: talk_back_type.to_string(),
-			talk_back_config: talk_back_config.to_string()
+			automation_type: talk_back_type.to_string(),
+			automation_config: talk_back_config.to_string()
 		}
 	}
 
@@ -90,7 +90,8 @@ fn run_host() {
 }
 
 fn main() {
-	env_logger::from_env(Env::default().default_filter_or("debug")).init();
+	let mut builder = Builder::from_default_env();
+	builder.init();
 
 	CONFIG.print();
 	run_host();
