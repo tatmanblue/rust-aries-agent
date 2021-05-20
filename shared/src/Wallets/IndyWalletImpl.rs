@@ -1,7 +1,9 @@
+use indy::wallet;
 use std::io::Error;
 
 use super::WalletTrait;
 use super::Records::*;
+
 
 //
 // configures the Indy wallet
@@ -9,7 +11,8 @@ use super::Records::*;
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndyWalletConfig {
-    pub seed: String,
+    pub id: String,
+    pub key: String,
     pub pool_file_name: String
 }
 
@@ -43,6 +46,16 @@ impl IndyWallet
                 panic!("did not understand wallet-config, cannot continue {:?}", e);
             }
         };
+
+        let config_data:String = json!({
+            "id": config.id
+        }).to_string();
+
+        let credentials:String = json!({
+            "key": config.key
+        }).to_string();
+
+        let result = wallet::create_wallet(&config_data, &credentials).wait();
 
         let wallet: IndyWallet = IndyWallet {
             configuration: config
