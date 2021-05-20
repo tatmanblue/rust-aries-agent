@@ -1,7 +1,9 @@
 mod BasicWalletImpl;
+mod IndyWalletImpl;
 pub mod Records;
 
 use BasicWalletImpl::BasicWallet;
+use IndyWalletImpl::IndyWallet;
 use Records::*;
 
 #[derive(Debug, Clone)]
@@ -9,7 +11,7 @@ pub enum WalletTypes {
     // file base storage
     Basic(BasicWallet),
     // using indysdk wallets
-    Indy()
+    Indy(IndyWallet)
 }
 
 /*
@@ -49,14 +51,14 @@ impl WalletTrait for WalletTypes
         debug!("WalletTypes.save_invitation");
         match *self {
             WalletTypes::Basic(ref handler) => handler.save_invitation(record),
-            WalletTypes::Indy() => unimplemented!()
+            WalletTypes::Indy(ref handler) => handler.save_invitiation(record),
         }
     }
 }
 
 pub fn get_wallet_handler(wallet_type: &str, wallet_config: &str) -> WalletTypes {
     match wallet_type.to_lowercase().as_str() {
-        "indy" => WalletTypes::Indy(),
+        "indy" => WalletTypes::Indy(IndyWallet::new(wallet_config)),
         _ => WalletTypes::Basic(BasicWallet::new(wallet_config))
     }
 }

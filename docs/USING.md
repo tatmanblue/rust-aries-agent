@@ -27,7 +27,7 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 ### Required Arguments
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
-| host | h  | ip/port host will use to listen to request such |  127.0.0.1:8000 |
+| host | h  | ip/port host will use to listen for requests |  127.0.0.1:8000 |
 | role | r  | identifies behavior between agent or agency, valid values are agent, agency | agent |
 | wallet-type | w  | indicates which wallet format is used, valid values are basic, indy | basic |
 | wallet-config | c  | input for configuring wallet. input is specific to value passed to --wallet-type |  |
