@@ -36,7 +36,7 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 | Long | Short | Meaning | Example |  
 | ---- | ----- | ------- | ------- |
 | automation | a | host will send responses on this channel. useful for automating protocol actions between agents if you do not want agents to manually handle messages. like acapy webhook, for now only valid values are none, http | http |
-| automation-config | b | configuration for the automation channel.  json. format depends on --talk-back value | |
+| automation-config | b | configuration for the automation channel.  json. format depends on --automation value | |
 
 #### --wallet-type basic --wallet-config
 When `--wallet-type` is  set to `basic` the argument `--wallet-config` will expect a json string for configuration.
