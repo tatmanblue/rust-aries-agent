@@ -51,7 +51,7 @@ impl WalletTrait for WalletTypes
         debug!("WalletTypes.save_invitation");
         match *self {
             WalletTypes::Basic(ref handler) => handler.save_invitation(record),
-            WalletTypes::Indy(ref handler) => handler.save_invitiation(record),
+            WalletTypes::Indy(ref handler) => handler.save_invitation(record),
         }
     }
 }
