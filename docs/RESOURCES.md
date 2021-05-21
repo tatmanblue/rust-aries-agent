@@ -1,7 +1,8 @@
 # Resources and References
 
 ## Aries Architecture
-[Aries RFCS](https://github.com/hyperledger/aries-rfcs)
+[Aries RFCS](https://github.com/hyperledger/aries-rfcs)  
+[Aries Wiki](https://wiki.hyperledger.org/display/ARIES/Hyperledger+Aries)  
 
 ## Agents
 [ACAPY](https://github.com/hyperledger/aries-cloudagent-python)  
@@ -29,3 +30,6 @@ Please note that indy sdk is no longer being maintained
 ## Additional Code considerations
 [rust cheat sheet](https://cheats.rs/)  
 [rust host](https://dev.to/gruberb/web-development-with-rust-03-x-create-a-rest-api-3i82)  
+
+## Libraries for future consideration
+[Translation Crate](https://docs.rs/libretranslate/0.3.1/libretranslate/)
