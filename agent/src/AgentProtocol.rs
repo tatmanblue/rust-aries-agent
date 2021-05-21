@@ -37,7 +37,8 @@ pub struct AgentProtocol {
 impl ProtocolTrait for AgentProtocol {
     fn status(&self) -> Result<StatusResponse, ErrorResponse> {
         Ok(StatusResponse {
-            message : "Agent reporting status (TODO)".to_string()
+            message : "Agent reporting status (TODO)".to_string(),
+            ..Default::default()
         })
     }
 

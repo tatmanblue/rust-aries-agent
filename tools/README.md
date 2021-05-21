@@ -11,7 +11,7 @@ Shell files meant to make life a little easier.
 
 All scripts are expected to be run from the tools folder.  Any deviation from this standard is not supported.
 
-Most scripts expect you have all code and environment configured correctly. See the using [README](../docs/USING.md) for more details.  
+Most scripts expect you have all code and environment configured correctly. See the using [USING](../docs/USING.md) readme file for more details.  
 
 ### Windows Command Scripts
 | file | purpose |
@@ -23,5 +23,6 @@ Most scripts expect you have all code and environment configured correctly. See 
 | file | purpose |
 | ---- | ------- |
 | runhost.sh | Runs host with standard configuration |
+| runhost-indy.sh | Runs host with configuration for using indy wallets |
 
 

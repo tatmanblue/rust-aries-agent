@@ -51,10 +51,13 @@ pub enum HostedRoleTypes {
 impl ProtocolTrait for HostedRoleTypes {
     fn status(&self) -> Result<StatusResponse, ErrorResponse>  {
         debug!("HostedRoleTypes.status");
-        match *self {
+        let mut result = match *self {
             HostedRoleTypes::Agent(ref handler) => handler.status(),
             HostedRoleTypes::Agency(ref handler) => handler.status(),
-        }
+        };
+
+        // TODO: if success, update host_type and wallet_type
+        result
     }
 
     fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {

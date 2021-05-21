@@ -124,9 +124,11 @@ pub struct GenericResponse {
     pub id: u32
 }
 
-#[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StatusResponse {
+    pub host_type: String,
+    pub wallet_type: String,
     pub message: String
 }
 

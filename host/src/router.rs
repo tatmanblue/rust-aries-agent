@@ -78,8 +78,7 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response>
-    {
+    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response> {
         // TODO we will use params when the function is implemented
         // let params: CreateInvitationParameters = request.query()?;
         let response = Response::builder(400);              // will change to mut once we implement body
