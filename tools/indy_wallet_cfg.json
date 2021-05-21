@@ -1,0 +1,5 @@
+{
+  "id": "json_wallet",
+  "key": "json_wallet_key",
+  "poolFileName": "tdb"
+}

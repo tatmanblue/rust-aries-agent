@@ -22,6 +22,7 @@ mod router;
 
 // dependency use statements, and keep them alphabetical
 use clap::{App, ArgMatches};
+use std::fs;
 
 // our use statements, and keep them alphabetical (getting the idea yet?)
 use AriesShared::{
@@ -42,6 +43,7 @@ pub struct Config {
 	role: String,			// host_type
 	wallet_type: String,
 	wallet_config: String,
+	wallet_config_file: String,
 	automation_type: String,
 	automation_config: String
 }
@@ -56,6 +58,7 @@ impl Config {
 		let talk_back_config: &str = options.value_of("automationConfig").unwrap_or("");
 		let role: &str = options.value_of("role").unwrap_or("Agent");
 		let wallet_type: &str = options.value_of("walletType").unwrap_or("Basic");
+		let wallet_config_file: &str = options.value_of("walletConfigFile").unwrap_or("");
 		let talk_back_type: &str = options.value_of("automation").unwrap_or("none");
 
 		Config {
@@ -63,6 +66,7 @@ impl Config {
 			role: role.to_string(),
 			wallet_type: wallet_type.to_string(),
 			wallet_config: wallet_config.to_string(),
+			wallet_config_file: wallet_config_file.to_string(),
 			automation_type: talk_back_type.to_string(),
 			automation_config: talk_back_config.to_string()
 		}
@@ -89,8 +93,14 @@ lazy_static! {
 // (if we decide one host handles multiple input types)
 fn run_host() {
 	let automation: AutomationTypes = get_automation_handler(&CONFIG.automation_type, &CONFIG.automation_config);
-	let wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &CONFIG.wallet_config);
-	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host.to_string(), wallet, automation);
+
+	let mut wallet_config_data: String = CONFIG.wallet_config.to_string();
+	if 0 < CONFIG.wallet_config_file.chars().count() {
+		wallet_config_data = fs::read_to_string(&CONFIG.wallet_config_file).unwrap();
+	}
+
+	let wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &wallet_config_data);
+	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host, wallet, automation);
 	let mut router: Router = Router::new(&CONFIG.role, mediator);
 	router.map_all_routes();
 	router.run(&CONFIG.host);

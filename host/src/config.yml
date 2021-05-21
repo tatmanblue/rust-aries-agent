@@ -40,6 +40,10 @@ args:
       short: c
       long: wallet-config
       takes_value: true
+  - walletConfigFile:
+      help: (optional) filename for configuring wallet. see docs for details.  only applicable when wallet-type is indy. Supersedes wallet-config
+      long: wallet-config-file
+      takes_value: true
   - automation:
       help: (optional) host will send responses on this channel. useful for automating protocol actions between agents. like acapy webhook
       short: a
