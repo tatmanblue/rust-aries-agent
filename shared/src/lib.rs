@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
 extern crate chrono;
-extern crate indy;
+extern crate indyrs;
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]

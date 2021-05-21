@@ -1,4 +1,7 @@
-use indy::wallet;
+use indyrs::{
+    future::Future,
+    wallet
+};
 use std::io::Error;
 
 use super::WalletTrait;
