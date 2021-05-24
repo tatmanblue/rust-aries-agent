@@ -1,12 +1,16 @@
 use indyrs::{
+    INVALID_WALLET_HANDLE,
     future::Future,
-    wallet
+    wallet,
+    WalletHandle
 };
 use std::io::Error;
 
 use super::WalletTrait;
 use super::Records::*;
+use indyrs::ErrorCode::WalletAlreadyExistsError;
 
+static RECORD_TYPE_RECORD: &'static str = "record_type";
 
 //
 // configures the Indy wallet
@@ -26,7 +30,8 @@ pub struct IndyWalletConfig {
 #[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IndyWallet {
-    pub configuration: IndyWalletConfig
+    pub configuration: IndyWalletConfig,
+    pub wallet_handle: WalletHandle,
 }
 
 // ----------------------------------------------------------------------------------
@@ -50,18 +55,9 @@ impl IndyWallet
             }
         };
 
-        let config_data:String = json!({
-            "id": config.id
-        }).to_string();
-
-        let credentials:String = json!({
-            "key": config.key
-        }).to_string();
-
-        let result = wallet::create_wallet(&config_data, &credentials).wait();
-
         let wallet: IndyWallet = IndyWallet {
-            configuration: config
+            configuration: config,
+            wallet_handle: INVALID_WALLET_HANDLE
         };
 
         wallet
@@ -72,23 +68,75 @@ impl IndyWallet
 // Implementation WalletTrait for BasicWallet
 
 impl WalletTrait for IndyWallet {
-    fn create(&self) {
-        unimplemented!()
-    }
+    fn open(&mut self) {
 
-    fn open(&self) {
-        unimplemented!()
+        let config_data:String = json!({
+            "id": self.configuration.id
+        }).to_string();
+
+        let credentials:String = json!({
+            "key": self.configuration.key
+        }).to_string();
+
+        match wallet::create_wallet(&config_data, &credentials).wait() {
+            Ok(_s) => {},
+            Err(e) => {
+                if e.error_code != WalletAlreadyExistsError {
+                    panic!("error creating indy wallet {:?}", e);
+                }
+            }
+        }
+
+
+        match wallet::open_wallet(&config_data, &credentials).wait() {
+            Ok(wallet) => {
+                self.wallet_handle = wallet;
+            },
+            Err(e) => {
+                panic!("indy wallet open failed {:?}", e)
+            }
+        }
+
     }
 
     fn close(&self) {
-        unimplemented!()
+        match wallet::close_wallet(self.wallet_handle).wait() {
+            Ok(_s) => debug!("wallet closed"),
+            Err(e) => debug!("error closing indy wallet {:?}", e)
+        }
     }
 
     fn delete(&self) {
-        unimplemented!()
+
+        let config_data:String = json!({
+            "id": self.configuration.id
+        }).to_string();
+
+        let credentials:String = json!({
+            "key": self.configuration.key
+        }).to_string();
+
+        match wallet::delete_wallet(&config_data, &credentials).wait() {
+            Ok(_s) => info!("wallet deleted"),
+            Err(e) => panic!("deleting wallet failed {:?}", e)
+        }
     }
 
+    //
+    //    Connection record is saved by connection_id and tagged with "connections"
+    //    this allows retrieval by connection_id and searches on connections
+    //
     fn save_invitation(&self, record: &ConnectionRecord) {
+
+        match wallet::get_wallet_record(self.wallet_handle, RECORD_TYPE_RECORD, &record.id.to_string(), "{}").wait() {
+            Ok(_s) => {
+                debug!("updating record")
+            },
+            Err(_e) => {
+                debug!("saving new record")
+            }
+        };
+
         unimplemented!()
     }
 }

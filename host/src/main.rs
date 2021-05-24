@@ -37,6 +37,7 @@ use AriesShared::{
 };
 use hosting::{HostedRoleTypes, get_agent_or_agency};
 use router::{Router};
+use AriesShared::Wallets::WalletTrait;
 
 pub struct Config {
 	host: String,
@@ -99,11 +100,14 @@ fn run_host() {
 		wallet_config_data = fs::read_to_string(&CONFIG.wallet_config_file).unwrap();
 	}
 
-	let wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &wallet_config_data);
+	let mut wallet: WalletTypes = get_wallet_handler(&CONFIG.wallet_type, &wallet_config_data);
+	wallet.open();
+
 	let mediator: HostedRoleTypes = get_agent_or_agency(&CONFIG.role, &CONFIG.host, wallet, automation);
 	let mut router: Router = Router::new(&CONFIG.role, mediator);
 	router.map_all_routes();
 	router.run(&CONFIG.host);
+
 }
 
 fn main() {

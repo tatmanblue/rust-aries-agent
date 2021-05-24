@@ -93,16 +93,12 @@ impl BasicWallet {
 // Implementation WalletTrait for BasicWallet
 
 impl WalletTrait for BasicWallet {
-    fn create(&self) {
-        unimplemented!()
-    }
-
-    fn open(&self) {
-        unimplemented!()
+    fn open(&mut self) {
+        debug!("basic wallet open");
     }
 
     fn close(&self) {
-        unimplemented!()
+        debug!("basic wallet closed");
     }
 
     fn delete(&self) {

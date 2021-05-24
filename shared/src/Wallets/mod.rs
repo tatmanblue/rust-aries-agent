@@ -19,8 +19,7 @@ pub enum WalletTypes {
     TBD: this interface is being defined as the use cases arise
 */
 pub trait WalletTrait {
-    fn create(&self);
-    fn open(&self);
+    fn open(&mut self);
     fn close(&self);
     fn delete(&self);
 
@@ -31,12 +30,12 @@ pub trait WalletTrait {
 
 impl WalletTrait for WalletTypes
 {
-    fn create(&self) {
-        unimplemented!()
-    }
-
-    fn open(&self) {
-        unimplemented!()
+    fn open(&mut self) {
+        debug!("WalletTypes.open");
+        match *self {
+            WalletTypes::Basic(ref mut handler) => handler.open(),
+            WalletTypes::Indy(ref mut handler) => handler.open(),
+        }
     }
 
     fn close(&self) {

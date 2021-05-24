@@ -1,5 +1,5 @@
 {
-  "id": "json_wallet",
-  "key": "json_wallet_key",
+  "id": "indy_wallet",
+  "key": "indy_wallet_key",
   "poolFileName": "tdb"
 }

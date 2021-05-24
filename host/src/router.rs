@@ -43,7 +43,7 @@ impl Router {
         match rt.block_on(self.app.listen(host.to_string())) {
             Ok(_) => { },
             Err(e) => {
-                error!("webhosting error {:?}", e)
+                error!("Routing error {:?}", e)
             }
         }
     }
