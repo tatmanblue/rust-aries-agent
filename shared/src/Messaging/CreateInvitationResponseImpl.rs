@@ -1,7 +1,10 @@
 use std::io::Error;
 use uuid::Uuid;
 
-use crate::Wallets::Records::ConnectionRecord;
+use crate::Wallets::Records::{
+    ConnectionRecord,
+    ConnectionState
+};
 use super::{CreateInvitationResponse, Invitation};
 
 impl CreateInvitationResponse {
@@ -23,7 +26,16 @@ impl CreateInvitationResponse {
         serde_json::to_string(&self).unwrap()
     }
 
-    pub fn as_connection_record(&self) -> ConnectionRecord {
-        unimplemented!()
+    pub fn as_connection_record(&self, state: ConnectionState) -> ConnectionRecord {
+        ConnectionRecord {
+            id: self.connection_id.to_string(),
+            did: self.invitation.did.to_string(),
+            image_url: "".to_string(),
+            label: self.invitation.image_url.to_string(),
+            recipient_keys: self.invitation.recipient_keys.clone(),
+            routing_keys: self.invitation.routing_keys.clone(),
+            service_endpoint: self.invitation.service_endpoint.to_string(),
+            state,
+        }
     }
 }

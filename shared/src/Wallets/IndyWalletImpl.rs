@@ -1,9 +1,4 @@
-use indyrs::{
-    INVALID_WALLET_HANDLE,
-    future::Future,
-    wallet,
-    WalletHandle
-};
+use indyrs::{INVALID_WALLET_HANDLE, future::Future, wallet, WalletHandle, IndyError};
 use std::io::Error;
 
 use super::WalletTrait;
@@ -128,15 +123,20 @@ impl WalletTrait for IndyWallet {
     //
     fn save_invitation(&self, record: &ConnectionRecord) {
 
+        let result: Result<(), IndyError>;
+        let data: String = serde_json::to_string(&record).unwrap();
         match wallet::get_wallet_record(self.wallet_handle, RECORD_TYPE_RECORD, &record.id.to_string(), "{}").wait() {
             Ok(_s) => {
-                debug!("updating record")
+                result = wallet::update_wallet_record_value(self.wallet_handle, RECORD_TYPE_RECORD, &record.id.to_string(), &data).wait();
             },
             Err(_e) => {
-                debug!("saving new record")
+                result = wallet::add_wallet_record(self.wallet_handle, RECORD_TYPE_RECORD, &record.id.to_string(), &data, None).wait();
             }
         };
 
-        unimplemented!()
+        match result {
+            Ok(_s) => debug!("connection record saved"),
+            Err(e) => warn!("saving connection record failed: {:?}", e)
+        }
     }
 }
