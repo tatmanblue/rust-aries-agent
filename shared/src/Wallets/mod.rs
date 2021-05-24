@@ -41,16 +41,16 @@ impl WalletTrait for WalletTypes
     fn close(&self) {
         debug!("WalletTypes.close()");
         match *self {
-            WalletTypes::Basic(ref mut handler) => handler.close(),
-            WalletTypes::Indy(ref mut handler) => handler.close(),
+            WalletTypes::Basic(ref handler) => handler.close(),
+            WalletTypes::Indy(ref handler) => handler.close(),
         }
     }
 
     fn delete(&self) {
         debug!("WalletTypes.delete()");
         match *self {
-            WalletTypes::Basic(ref mut handler) => handler.delete(),
-            WalletTypes::Indy(ref mut handler) => handler.delete(),
+            WalletTypes::Basic(ref handler) => handler.delete(),
+            WalletTypes::Indy(ref handler) => handler.delete(),
         }
     }
 
