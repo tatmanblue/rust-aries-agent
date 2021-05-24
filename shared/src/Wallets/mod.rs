@@ -31,7 +31,7 @@ pub trait WalletTrait {
 impl WalletTrait for WalletTypes
 {
     fn open(&mut self) {
-        debug!("WalletTypes.open");
+        debug!("WalletTypes.open()");
         match *self {
             WalletTypes::Basic(ref mut handler) => handler.open(),
             WalletTypes::Indy(ref mut handler) => handler.open(),
@@ -39,11 +39,19 @@ impl WalletTrait for WalletTypes
     }
 
     fn close(&self) {
-        unimplemented!()
+        debug!("WalletTypes.close()");
+        match *self {
+            WalletTypes::Basic(ref mut handler) => handler.close(),
+            WalletTypes::Indy(ref mut handler) => handler.close(),
+        }
     }
 
     fn delete(&self) {
-        unimplemented!()
+        debug!("WalletTypes.delete()");
+        match *self {
+            WalletTypes::Basic(ref mut handler) => handler.delete(),
+            WalletTypes::Indy(ref mut handler) => handler.delete(),
+        }
     }
 
     fn save_invitation(&self, record: &ConnectionRecord) {
