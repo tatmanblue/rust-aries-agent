@@ -3,9 +3,7 @@ use AriesAgent::AgentProtocol::AgentProtocol;
 use AriesShared::{
     Automation::AutomationTypes,
     Messaging::{
-        Parameters::{
-            CreateInvitationParameters
-        },
+        Parameters::*,
         BasicMessage,
         CreateInvitationResponse,
         ErrorResponse,
@@ -76,6 +74,14 @@ impl ProtocolTrait for HostedRoleTypes {
         }
     }
 
+    fn receive_start_invitation_message(&self, params:ConnectionInviteUrlParameters) -> Result<GenericResponse, ErrorResponse> {
+        debug!("HostedRoleTypes.receive_start_invitation_message");
+        match *self {
+            HostedRoleTypes::Agent(ref handler) => handler.receive_start_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_start_invitation_message(params),
+        }
+    }
+
     fn receive_basic_message(&self, message: BasicMessage)  -> Result<GenericResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_create_message");
         match *self {
@@ -90,7 +96,6 @@ impl ProtocolTrait for HostedRoleTypes {
  */
 pub fn get_agent_or_agency(role_type: &str, service_end_point: &str,
                            wallet: WalletTypes, automation: AutomationTypes) -> HostedRoleTypes {
-    // TODO: initialization of agent or agency
     match role_type.to_lowercase().as_str() {
         "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
         _ => HostedRoleTypes::Agent(AgentProtocol {

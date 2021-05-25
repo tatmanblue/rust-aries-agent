@@ -7,7 +7,8 @@ use tide::{Request, Response, Result, Server};
 use AriesShared::{
     Messaging::{
         Parameters::{
-            CreateInvitationParameters
+            CreateInvitationParameters,
+            ConnectionInviteUrlParameters
         },
     },
     ProtocolTrait::ProtocolTrait
@@ -78,11 +79,14 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response> {
-        // TODO we will use params when the function is implemented
-        // let params: CreateInvitationParameters = request.query()?;
-        let response = Response::builder(400);              // will change to mut once we implement body
-        warn!("connection_url not implemented");
+    async fn connection_url(request : Request<RouterConfig>) -> Result<Response> {
+        let config: &RouterConfig = request.state();
+        let params: ConnectionInviteUrlParameters = request.query()?;
+        let mut response = Response::builder(400);              // will change to mut once we implement body
+        match config.mediator.receive_start_invitation_message(params) {
+            Ok(success) => debug!("connection_url success"),
+            Err(e) => warn!("connection_url error {:?}", e)
+        }
         Ok(response.build())
     }
 

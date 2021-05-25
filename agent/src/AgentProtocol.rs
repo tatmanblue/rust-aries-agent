@@ -8,7 +8,8 @@ use AriesShared::{
     Crypto::{ Did },
     Messaging::{
         Parameters::{
-            CreateInvitationParameters
+            CreateInvitationParameters,
+            ConnectionInviteUrlParameters
         },
         BasicMessage,
         CreateInvitationResponse,
@@ -70,6 +71,13 @@ impl ProtocolTrait for AgentProtocol {
 
     fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {
         todo!()
+    }
+
+    fn receive_start_invitation_message(&self, params: ConnectionInviteUrlParameters) -> Result<GenericResponse, ErrorResponse> {
+        debug!("AgentProtocol.receive_start_invitation_message");
+        Ok(GenericResponse {
+            id: 1
+        })
     }
 
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {
