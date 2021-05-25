@@ -79,8 +79,8 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn connection_url(request : Request<RouterConfig>) -> Result<Response> {
-        let config: &RouterConfig = request.state();
+    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response>
+    {
         let params: ConnectionInviteUrlParameters = request.query()?;
         let mut response = Response::builder(400);              // will change to mut once we implement body
         match config.mediator.receive_start_invitation_message(params) {
