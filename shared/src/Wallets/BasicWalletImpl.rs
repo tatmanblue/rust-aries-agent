@@ -93,23 +93,18 @@ impl BasicWallet {
 // Implementation WalletTrait for BasicWallet
 
 impl WalletTrait for BasicWallet {
-    fn create(&self) {
-        unimplemented!()
+    fn open(&mut self) {
+        debug!("basic wallet open");
     }
 
-    fn open(&self) {
-        unimplemented!()
-    }
-
-    fn close(&self) {
-        unimplemented!()
-    }
+    fn close(&self) { debug!("basic wallet closed"); }
 
     fn delete(&self) {
         unimplemented!()
     }
 
     fn save_invitation(&self, record: &ConnectionRecord) {
-        unimplemented!()
+        let data: String = serde_json::to_string(&record).unwrap();
+        info!("BasicWallet.save_invitation does nothing: {:?}", data);
     }
 }

@@ -14,5 +14,5 @@ Cargo.lock
 **/*.rs.bk
 temp/
 
-# ignore build directory (see readmes)
+# these are created while following build instructions
 3rd-Party/indyrs
