@@ -38,14 +38,23 @@ Generally speaking, this the high level components of Rust Aries Agent:
 ## Design and Work Plan
 Version 1 of Rust Aries Agent goal is complete compatibility with ACAPY, with the following ARIES functionality:
 * [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
+* Basic message and problem report
 * Credentials
 * Proofs
-* Basic message and problem report
 
 Please see [Order of Work](docs/ORDER_OF_WORK.md) to understand what current development priorities are as this document
 is the master list of work to accomplish to achieve version 1 release.
 
 Future releases will be defined later to get to the ultimate goal of [Aries Interop 1.0 compliant](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0302-aries-interop-profile/README.md#aries-interop-profile-version-10)
+
+### IndySDK problem
+With the addition of using indksdk, we have a problem with CI/builds.  The rust wrapper does not work 
+(best we can tell) at this time.  Which means, if we are right, the CI would have to pull rust wrapper code to build correctly (which 
+means pulling down all of indysdk and either building it or pulling down binaries).  For now, we are just going to let builds 
+remain broken so that we can progress with testing on all environments.  Once we get parity with acapy for connections and basic messages, the 
+CI builds need to fixed.
+
+The [Order of Work](docs/ORDER_OF_WORK.md) has been updated to put fixing the CI in the priority list.
 
 ## References
 [Aries RFCS](https://github.com/hyperledger/aries-rfcs)
