@@ -58,11 +58,11 @@ impl ProtocolTrait for HostedRoleTypes {
         result
     }
 
-    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_create_message");
         match *self {
-            HostedRoleTypes::Agent(ref handler) => handler.receive_create_invitation_message(params),
-            HostedRoleTypes::Agency(ref handler) => handler.receive_create_invitation_message(params),
+            HostedRoleTypes::Agent(ref handler) => handler.create_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.create_invitation_message(params),
         }
     }
 
@@ -74,11 +74,11 @@ impl ProtocolTrait for HostedRoleTypes {
         }
     }
 
-    fn receive_start_invitation_message(&self, params:ConnectionInviteUrlParameters) -> Result<GenericResponse, ErrorResponse> {
+    fn receive_invitation_message(&self, params:InvitationParameters) -> Result<GenericResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_start_invitation_message");
         match *self {
-            HostedRoleTypes::Agent(ref handler) => handler.receive_start_invitation_message(params),
-            HostedRoleTypes::Agency(ref handler) => handler.receive_start_invitation_message(params),
+            HostedRoleTypes::Agent(ref handler) => handler.receive_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_invitation_message(params),
         }
     }
 

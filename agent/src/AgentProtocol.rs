@@ -7,10 +7,7 @@ use AriesShared::{
     },
     Crypto::{ Did },
     Messaging::{
-        Parameters::{
-            CreateInvitationParameters,
-            ConnectionInviteUrlParameters
-        },
+        Parameters::*,
         BasicMessage,
         CreateInvitationResponse,
         ErrorResponse,
@@ -46,19 +43,19 @@ impl ProtocolTrait for AgentProtocol {
         })
     }
 
-    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         let mut response: CreateInvitationResponse = CreateInvitationResponse::new();
         let did : Did = Did::new(None);
 
         // TODO: need some kind of resource that provides URL formatting.  cannot assume
         // it is http since down the road that could be message queue etc...
 
-        // TODO: not using at this time -> update response.invitation.routing_keys
-        // TODO: not using at this time -> update invitation.invitation.image_url
+        // TODO: not using at this time -> invitation.routing_keys
+        // TODO: not using at this time -> invitation.image_url
+        // TODO: not using at this time -> invitation.did = format!("did:sov:{}", did.did);
         response.invitation.service_endpoint = format!("http://{}", self.service_end_point.to_string());
-        response.invitation.did = format!("did:sov:{}", did.did);
         response.invitation.label = params.alias.to_string();
-        response.invitation.recipient_keys.push(did.did.to_string());
+        response.invitation.recipient_keys.push(did.ver_key.to_string());
 
         // TODO: get alias from params if they exist
         let encoded_invitation = encode(&response.invitation.to_json());
@@ -73,8 +70,8 @@ impl ProtocolTrait for AgentProtocol {
         todo!()
     }
 
-    fn receive_start_invitation_message(&self, params: ConnectionInviteUrlParameters) -> Result<GenericResponse, ErrorResponse> {
-        debug!("AgentProtocol.receive_start_invitation_message");
+    fn receive_invitation_message(&self, params: InvitationParameters) -> Result<GenericResponse, ErrorResponse> {
+        debug!("AgentProtocol.receive_invitation_message");
         Ok(GenericResponse {
             id: 1
         })

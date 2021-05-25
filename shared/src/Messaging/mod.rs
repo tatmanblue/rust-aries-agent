@@ -64,8 +64,11 @@ pub struct Invitation {
     pub id: String,
     #[serde(rename = "@type")]
     pub type_field: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub did: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub image_url: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub label: String,
     pub recipient_keys: Vec<String>,
     pub routing_keys: Vec<String>,

@@ -25,9 +25,9 @@ impl ProtocolTrait for AgencyProtocol {
         todo!()
     }
 
-    fn receive_start_invitation_message(&self, params: ConnectionInviteUrlParameters) -> Result<GenericResponse, ErrorResponse> { todo!() }
+    fn receive_invitation_message(&self, _: InvitationParameters) -> Result<GenericResponse, ErrorResponse> { todo!() }
 
-    fn receive_create_invitation_message(&self, _: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn create_invitation_message(&self, _: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         todo!()
     }
 }

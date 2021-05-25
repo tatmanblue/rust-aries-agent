@@ -6,10 +6,7 @@ use tide::{Request, Response, Result, Server};
 
 use AriesShared::{
     Messaging::{
-        Parameters::{
-            CreateInvitationParameters,
-            ConnectionInviteUrlParameters
-        },
+        Parameters::*
     },
     ProtocolTrait::ProtocolTrait
 };
@@ -52,8 +49,8 @@ impl Router {
     pub fn map_all_routes(&mut self) {
         self.app.at("/status").get(Router::get_status);
         self.app.at("/connections/").get(Router::list_all_connections);
-        self.app.at("/connections/invitation/url").get(Router::connection_url);
         self.app.at("/connections/create-invitation").post(Router::create_invitation);
+        self.app.at("/connections/receive-invitation").post(Router::receive_invitation);
     }
 
     // TODO:  all of these handlers are likely to get long, for sake of small readable files
@@ -79,22 +76,14 @@ impl Router {
         Ok(response.build())
     }
 
-    async fn connection_url(_request : Request<RouterConfig>) -> Result<Response>
-    {
-        let params: ConnectionInviteUrlParameters = request.query()?;
-        let mut response = Response::builder(400);              // will change to mut once we implement body
-        match config.mediator.receive_start_invitation_message(params) {
-            Ok(success) => debug!("connection_url success"),
-            Err(e) => warn!("connection_url error {:?}", e)
-        }
-        Ok(response.build())
-    }
-
+    // generates an invitation request which another agent will process with their
+    // "receive_invitation" end point.
+    //
     async fn create_invitation(request : Request<RouterConfig>) -> Result<Response> {
         let config: &RouterConfig = request.state();
         let params: CreateInvitationParameters = request.query()?;
         let mut response = Response::builder(400);
-        match config.mediator.receive_create_invitation_message(params) {
+        match config.mediator.create_invitation_message(params) {
             Ok(invite) => {
                 response = Response::builder(200).content_type("application/json").body(invite.to_json());
             },
@@ -102,6 +91,15 @@ impl Router {
                 warn!("status error {:?}", e);
             }
         }
+        Ok(response.build())
+    }
+
+    // another agent generated an invitation, which this agent now processes
+    async fn receive_invitation(request: Request<RouterConfig>) -> Result<Response> {
+        let config: &RouterConfig = request.state();
+        let params: InvitationParameters = request.query()?;
+        let mut response = Response::builder(400);
+
         Ok(response.build())
     }
 }
