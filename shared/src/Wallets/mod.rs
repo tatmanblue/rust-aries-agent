@@ -19,8 +19,7 @@ pub enum WalletTypes {
     TBD: this interface is being defined as the use cases arise
 */
 pub trait WalletTrait {
-    fn create(&self);
-    fn open(&self);
+    fn open(&mut self);
     fn close(&self);
     fn delete(&self);
 
@@ -31,20 +30,28 @@ pub trait WalletTrait {
 
 impl WalletTrait for WalletTypes
 {
-    fn create(&self) {
-        unimplemented!()
-    }
-
-    fn open(&self) {
-        unimplemented!()
+    fn open(&mut self) {
+        debug!("WalletTypes.open()");
+        match *self {
+            WalletTypes::Basic(ref mut handler) => handler.open(),
+            WalletTypes::Indy(ref mut handler) => handler.open(),
+        }
     }
 
     fn close(&self) {
-        unimplemented!()
+        debug!("WalletTypes.close()");
+        match *self {
+            WalletTypes::Basic(ref handler) => handler.close(),
+            WalletTypes::Indy(ref handler) => handler.close(),
+        }
     }
 
     fn delete(&self) {
-        unimplemented!()
+        debug!("WalletTypes.delete()");
+        match *self {
+            WalletTypes::Basic(ref handler) => handler.delete(),
+            WalletTypes::Indy(ref handler) => handler.delete(),
+        }
     }
 
     fn save_invitation(&self, record: &ConnectionRecord) {

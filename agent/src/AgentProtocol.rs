@@ -18,6 +18,9 @@ use AriesShared::{
     },
     ProtocolTrait::ProtocolTrait,
     Wallets::{
+        Records::{
+            ConnectionState
+        },
         WalletTypes,
         WalletTrait
     }
@@ -37,7 +40,8 @@ pub struct AgentProtocol {
 impl ProtocolTrait for AgentProtocol {
     fn status(&self) -> Result<StatusResponse, ErrorResponse> {
         Ok(StatusResponse {
-            message : "Agent reporting status (TODO)".to_string()
+            message : "Agent reporting status (TODO)".to_string(),
+            ..Default::default()
         })
     }
 
@@ -59,8 +63,7 @@ impl ProtocolTrait for AgentProtocol {
         let encoded_invitation = encode(&response.invitation.to_json());
         response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
-        // TODO: save invitation so that we can reference it when returned by interested party
-        self.wallet.save_invitation(&response.as_connection_record());
+        self.wallet.save_invitation(&response.as_connection_record(ConnectionState::Invited));
 
         Ok(response)
     }

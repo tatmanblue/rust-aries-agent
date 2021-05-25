@@ -31,6 +31,7 @@ to set it how you like. Please refer to the [rust documentation](https://rust-la
 | role | r  | identifies behavior between agent or agency, valid values are agent, agency | agent |
 | wallet-type | w  | indicates which wallet format is used, valid values are basic, indy | basic |
 | wallet-config | c  | input for configuring wallet. input is specific to value passed to --wallet-type |  |
+| wallet-config-file |   | file for configuring wallet. input is specific to value passed to --wallet-type. supersedes `wallet-config` argument if both are included |  |
 
 ### Optional Arguments
 | Long | Short | Meaning | Example |  
@@ -46,7 +47,11 @@ When `--wallet-type` is  set to `basic` the argument `--wallet-config` will expe
 If the value is not provided or has errors, the default will be used.
 
 #### --wallet-type indy --wallet-config
-Note: currently not implemented
+When `--wallet-type` is  set to `indy` the argument `--wallet-config` will expect a json string for configuration.
+
+```{"id":"wallet-id", "key": "wallet-password", "poolFileName": "poolFileName"  }```
+
+If the value is not provided or has errors, the application will error and stop.
 
 #### --automation http --automation-config
 When `--automation` is set to `http`, aries agents will send responses on that channel.  For http use,
