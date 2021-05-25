@@ -13,6 +13,7 @@
 Please note that indy sdk is no longer being maintained
 [IndySDK](https://github.com/hyperledger/indy-sdk)  
 [Indy Node](https://github.com/hyperledger/indy-node)  
+[Libs](https://repo.sovrin.org/)  
 
 ## Tools
 [DidGen](https://github.com/matt-raffel-kiva/didgen)  

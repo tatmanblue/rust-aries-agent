@@ -11,10 +11,11 @@ edited: 2020.10.27
 3. (in progress) [connection protocol](https://github.com/hyperledger/aries-rfcs/tree/master/features/0160-connection-protocol)
 4. List connections
 5. [send problem report](https://github.com/hyperledger/aries-rfcs/tree/master/features/0035-report-problem)
-6. auto response to connection protocols, configurable
-7. add option to initialize/use indy wallet
-8. add indy-node to docker
-9. Issue credential
+6. Fix CI
+7. auto response to connection protocols, configurable
+8. add option to initialize/use indy wallet
+9. add indy-node to docker
+10. Issue credential
 
 ## Decisions to be done
 1. Will the host handle different transport layers or should different hosts be used to provide
