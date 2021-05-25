@@ -12,6 +12,7 @@ use AriesShared::{
         CreateInvitationResponse,
         ErrorResponse,
         GenericResponse,
+        ReceiveInvitationResponse,
         StatusResponse
     },
     ProtocolTrait::ProtocolTrait,
@@ -70,11 +71,11 @@ impl ProtocolTrait for AgentProtocol {
         todo!()
     }
 
-    fn receive_invitation_message(&self, params: InvitationParameters) -> Result<GenericResponse, ErrorResponse> {
+    fn receive_invitation_message(&self, params: InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> {
         debug!("AgentProtocol.receive_invitation_message");
-        Ok(GenericResponse {
-            id: 1
-        })
+        Ok(
+            ReceiveInvitationResponse::new()
+        )
     }
 
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {

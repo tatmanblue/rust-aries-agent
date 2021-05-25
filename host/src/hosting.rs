@@ -8,6 +8,7 @@ use AriesShared::{
         CreateInvitationResponse,
         ErrorResponse,
         GenericResponse,
+        ReceiveInvitationResponse,
         StatusResponse
     },
     ProtocolTrait::ProtocolTrait,
@@ -74,7 +75,7 @@ impl ProtocolTrait for HostedRoleTypes {
         }
     }
 
-    fn receive_invitation_message(&self, params:InvitationParameters) -> Result<GenericResponse, ErrorResponse> {
+    fn receive_invitation_message(&self, params:InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_start_invitation_message");
         match *self {
             HostedRoleTypes::Agent(ref handler) => handler.receive_invitation_message(params),

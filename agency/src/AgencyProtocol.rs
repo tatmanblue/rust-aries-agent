@@ -4,6 +4,7 @@ use AriesShared::Messaging::{
     CreateInvitationResponse,
     ErrorResponse,
     GenericResponse,
+    ReceiveInvitationResponse,
     StatusResponse
 };
 use AriesShared::ProtocolTrait::ProtocolTrait;
@@ -25,7 +26,7 @@ impl ProtocolTrait for AgencyProtocol {
         todo!()
     }
 
-    fn receive_invitation_message(&self, _: InvitationParameters) -> Result<GenericResponse, ErrorResponse> { todo!() }
+    fn receive_invitation_message(&self, _: InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> { todo!() }
 
     fn create_invitation_message(&self, _: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         todo!()

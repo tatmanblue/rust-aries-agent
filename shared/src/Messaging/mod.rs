@@ -14,6 +14,7 @@ pub mod Parameters;
 mod BasicMessageImpl;
 mod CreateInvitationResponseImpl;
 mod InvitationImpl;
+mod ReceiveInvitationResponseImpl;
 
 // -----------------------------------------------------------------------------------------------
 // This file is likely to get long.  Keep all structures organized alphabetically.  It contains
@@ -73,6 +74,34 @@ pub struct Invitation {
     pub recipient_keys: Vec<String>,
     pub routing_keys: Vec<String>,
     pub service_endpoint: String,
+}
+
+/*
+{
+    "their_role": "inviter",
+    "created_at": "2021-05-25 18:23:54.035469Z",
+    "invitation_key": "BteySsVyJVdMqMDkAcA9ZDGDEP9TAG6oNfsPFVGotyp1",
+    "rfc23_state": "invitation-received",
+    "accept": "manual",
+    "invitation_mode": "once",
+    "routing_state": "none",
+    "updated_at": "2021-05-25 18:23:54.035469Z",
+    "state": "invitation",
+    "connection_id": "4a37635c-ee2f-466d-8bf9-f7158019a1fc"
+}
+ */
+#[derive(Debug, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
+pub struct ReceiveInvitationResponse {
+    pub accept: String,
+    pub connection_id: String,
+    pub created_at: DateTime<Utc>,
+    pub invitation_key: String,
+    pub invitation_mode: String,
+    pub rfc23_state: String,
+    pub routing_state: String,
+    pub state: String,
+    pub their_role: String,
+    pub updated_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Default, Clone, PartialEq, serde_derive::Serialize, serde_derive::Deserialize)]
