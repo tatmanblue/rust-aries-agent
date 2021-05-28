@@ -17,9 +17,7 @@ use AriesShared::{
     },
     ProtocolTrait::ProtocolTrait,
     Wallets::{
-        Records::{
-            ConnectionState
-        },
+        Records::*,
         WalletTypes,
         WalletTrait
     }
@@ -63,7 +61,6 @@ impl ProtocolTrait for AgentProtocol {
         response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
         self.wallet.save_invitation(&response.as_connection_record(ConnectionState::Invited));
-
         Ok(response)
     }
 
@@ -73,6 +70,17 @@ impl ProtocolTrait for AgentProtocol {
 
     fn receive_invitation_message(&self, params: InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> {
         debug!("AgentProtocol.receive_invitation_message");
+        let mut record: ConnectionRecord = ConnectionRecord::new();
+
+        record.did = params.did.to_string();
+        record.label = params.image_url.to_string();
+        record.recipient_keys = params.recipient_keys.clone();
+        record.routing_keys = params.routing_keys.clone();
+        record.service_endpoint = params.service_endpoint.to_string();
+        record.state = ConnectionState::Responded;
+        self.wallet.save_invitation(&record);
+
+        // TODO: what about auto responding
         Ok(
             ReceiveInvitationResponse::new()
         )

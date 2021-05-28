@@ -88,7 +88,7 @@ impl Router {
                 response = Response::builder(200).content_type("application/json").body(invite.to_json());
             },
             Err(e) => {
-                warn!("status error {:?}", e);
+                warn!("create_invitation error {:?}", e);
             }
         }
         Ok(response.build())
@@ -97,8 +97,16 @@ impl Router {
     // another agent generated an invitation, which this agent now processes
     async fn receive_invitation(request: Request<RouterConfig>) -> Result<Response> {
         let config: &RouterConfig = request.state();
-        let params: InvitationParameters = request.query()?;
+        let parms: InvitationParameters = request.query()?;
         let mut response = Response::builder(400);
+        match config.mediator.receive_invitation_message(parms) {
+            Ok(receive_invite) => {
+                response = Response::builder(200).content_type("application/json").body(receive_invite.to_json());
+            },
+            Err(e) => {
+                warn!("receive_invitation error {:?}", e);
+            }
+        }
 
         Ok(response.build())
     }
