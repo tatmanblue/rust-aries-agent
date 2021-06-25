@@ -3,7 +3,6 @@ use tide::*;
 
 static mut COUNTER: i32 = 0;
 
-
 //
 // a simple listener that will listen at a given address and dump the body of what
 // is received
@@ -16,15 +15,14 @@ async fn main()  -> Result<()> {
     }
 
     let mut app = tide::new();
-
     app.at("/:topic/:subtopic").post(|mut req: Request<()>| async move {
         let mut print_count: i32;
         unsafe {
             COUNTER = COUNTER + 1;
             print_count = COUNTER;
         }
-        let topic = req.param("topic").unwrap_or("".to_owned());
-        let subtopic = req.param("subtopic").unwrap_or("".to_owned());
+        let topic = req.param("topic").unwrap_or("").to_string();
+        let subtopic = req.param("subtopic").unwrap_or("").to_string();
         let data: String = req.body_string().await?;
         println!("- {} ----------------------------------------------------------------------- {} ---",
                  print_count, print_count);

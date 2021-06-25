@@ -7,20 +7,17 @@ use AriesShared::{
     },
     Crypto::{ Did },
     Messaging::{
-        Parameters::{
-            CreateInvitationParameters
-        },
+        Parameters::*,
         BasicMessage,
         CreateInvitationResponse,
         ErrorResponse,
         GenericResponse,
+        ReceiveInvitationResponse,
         StatusResponse
     },
     ProtocolTrait::ProtocolTrait,
     Wallets::{
-        Records::{
-            ConnectionState
-        },
+        Records::*,
         WalletTypes,
         WalletTrait
     }
@@ -45,31 +42,48 @@ impl ProtocolTrait for AgentProtocol {
         })
     }
 
-    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         let mut response: CreateInvitationResponse = CreateInvitationResponse::new();
         let did : Did = Did::new(None);
 
         // TODO: need some kind of resource that provides URL formatting.  cannot assume
         // it is http since down the road that could be message queue etc...
 
-        // TODO: not using at this time -> update response.invitation.routing_keys
-        // TODO: not using at this time -> update invitation.invitation.image_url
+        // TODO: not using at this time -> invitation.routing_keys
+        // TODO: not using at this time -> invitation.image_url
+        // TODO: not using at this time -> invitation.did = format!("did:sov:{}", did.did);
         response.invitation.service_endpoint = format!("http://{}", self.service_end_point.to_string());
-        response.invitation.did = format!("did:sov:{}", did.did);
         response.invitation.label = params.alias.to_string();
-        response.invitation.recipient_keys.push(did.did.to_string());
+        response.invitation.recipient_keys.push(did.ver_key.to_string());
 
         // TODO: get alias from params if they exist
         let encoded_invitation = encode(&response.invitation.to_json());
         response.invitation_url = format!("http://{}/connections/invitation/url?c_i={}", self.service_end_point.to_string(), encoded_invitation);
 
         self.wallet.save_invitation(&response.as_connection_record(ConnectionState::Invited));
-
         Ok(response)
     }
 
     fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse> {
         todo!()
+    }
+
+    fn receive_invitation_message(&self, params: InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> {
+        debug!("AgentProtocol.receive_invitation_message");
+        let mut record: ConnectionRecord = ConnectionRecord::new();
+
+        record.did = params.did.to_string();
+        record.label = params.image_url.to_string();
+        record.recipient_keys = params.recipient_keys.clone();
+        record.routing_keys = params.routing_keys.clone();
+        record.service_endpoint = params.service_endpoint.to_string();
+        record.state = ConnectionState::Responded;
+        self.wallet.save_invitation(&record);
+
+        // TODO: what about auto responding
+        Ok(
+            ReceiveInvitationResponse::new()
+        )
     }
 
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse> {

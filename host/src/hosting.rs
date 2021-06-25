@@ -3,13 +3,12 @@ use AriesAgent::AgentProtocol::AgentProtocol;
 use AriesShared::{
     Automation::AutomationTypes,
     Messaging::{
-        Parameters::{
-            CreateInvitationParameters
-        },
+        Parameters::*,
         BasicMessage,
         CreateInvitationResponse,
         ErrorResponse,
         GenericResponse,
+        ReceiveInvitationResponse,
         StatusResponse
     },
     ProtocolTrait::ProtocolTrait,
@@ -60,11 +59,11 @@ impl ProtocolTrait for HostedRoleTypes {
         result
     }
 
-    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
+    fn create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse> {
         debug!("HostedRoleTypes.receive_create_message");
         match *self {
-            HostedRoleTypes::Agent(ref handler) => handler.receive_create_invitation_message(params),
-            HostedRoleTypes::Agency(ref handler) => handler.receive_create_invitation_message(params),
+            HostedRoleTypes::Agent(ref handler) => handler.create_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.create_invitation_message(params),
         }
     }
 
@@ -73,6 +72,14 @@ impl ProtocolTrait for HostedRoleTypes {
         match *self {
             HostedRoleTypes::Agent(ref handler) => handler.list_all_connections(),
             HostedRoleTypes::Agency(ref handler) => handler.list_all_connections(),
+        }
+    }
+
+    fn receive_invitation_message(&self, params:InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse> {
+        debug!("HostedRoleTypes.receive_start_invitation_message");
+        match *self {
+            HostedRoleTypes::Agent(ref handler) => handler.receive_invitation_message(params),
+            HostedRoleTypes::Agency(ref handler) => handler.receive_invitation_message(params),
         }
     }
 
@@ -90,7 +97,6 @@ impl ProtocolTrait for HostedRoleTypes {
  */
 pub fn get_agent_or_agency(role_type: &str, service_end_point: &str,
                            wallet: WalletTypes, automation: AutomationTypes) -> HostedRoleTypes {
-    // TODO: initialization of agent or agency
     match role_type.to_lowercase().as_str() {
         "agency" => HostedRoleTypes::Agency(AgencyProtocol {}),
         _ => HostedRoleTypes::Agent(AgentProtocol {

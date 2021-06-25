@@ -1,11 +1,10 @@
 use crate::Messaging:: {
-    Parameters::{
-        CreateInvitationParameters
-    },
+    Parameters::*,
     BasicMessage,
     CreateInvitationResponse,
     ErrorResponse,
     GenericResponse,
+    ReceiveInvitationResponse,
     StatusResponse
 };
 
@@ -27,8 +26,9 @@ pub trait ProtocolTrait {
     fn status(&self) -> Result<StatusResponse, ErrorResponse>;
 
     // RFC '0160: Connection Protocol'
-    fn receive_create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse>;
+    fn create_invitation_message(&self, params: CreateInvitationParameters) -> Result<CreateInvitationResponse, ErrorResponse>;
     fn list_all_connections(&self) -> Result<GenericResponse, ErrorResponse>;
+    fn receive_invitation_message(&self, params: InvitationParameters) -> Result<ReceiveInvitationResponse, ErrorResponse>;
 
     // RFC '0095-basic-message'
     fn receive_basic_message(&self, message: BasicMessage) -> Result<GenericResponse, ErrorResponse>;
